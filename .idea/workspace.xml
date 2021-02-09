@@ -2,18 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b7bb105e-7d97-4ad4-9667-023d5a51ca61" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/pages/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pages/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pages/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pages/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pages/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pages/tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pages/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pages/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sellpoint/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/sellpoint/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sellpoint/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/sellpoint/urls.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,6 +79,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />

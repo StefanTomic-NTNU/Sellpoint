@@ -7,3 +7,7 @@ The following command will install the packages according to the configuration f
 
 To run the project:
  ` python manage.py runserver`
+
+To activate venv i gitpod:
+
+` source venv/Scripts/activate`

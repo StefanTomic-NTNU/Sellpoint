@@ -1,4 +1,4 @@
-[![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)]https://gitpod.io/#https://gitlab.stud.idi.ntnu.no/tdt4140/landsby-4/gruppe-61/sellpoint
+[![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://gitlab.stud.idi.ntnu.no/tdt4140/landsby-4/gruppe-61/sellpoint)
 
 A requirements.txt file is a file that lists all of the modules needed for the Django project to work.
 

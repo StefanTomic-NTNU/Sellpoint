@@ -9,3 +9,7 @@ To run the project:
  ` python manage.py runserver`
 
 To activate venv i gitpod: ` source venv/Scripts/activate`
+
+#### Superuser
+name: admin
+password: aR5!?kuRTui

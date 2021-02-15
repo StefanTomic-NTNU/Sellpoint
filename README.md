@@ -6,4 +6,4 @@ The following command will install the packages according to the configuration f
  ` pip install -r requirements.txt`
 
 To run the project:
- ` python manage.py runderver`
+ ` python manage.py runserver`

@@ -1,0 +1,16 @@
+{% extends "pages/base.html" %}
+{% block content %}
+    {% for post in posts %}
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="#">{{ post.author }}</a>
+                <!-- Se Django doc for å endre format på dato -->
+              <small class="text-muted">{{ post.last_updated|date:"j. b, Y G:i" }}</small>
+            </div>
+            <h2><a class="article-title" href="#">{{ post.title }}</a></h2>
+            <p class="article-content">{{ post.description }}</p>
+          </div>
+        </article>
+    {% endfor %}
+{% endblock content %}

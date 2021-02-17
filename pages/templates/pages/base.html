@@ -23,55 +23,60 @@
 <body>
 
     <header class="site-header">
+      <nav class="navbar navbar-expand-sm bg-light">
         <div class="container">
-            <div class="nav-wrapper">
-              <!-- A grey horizontal navbar that becomes vertical on small screens -->
-                <nav class="navbar navbar-expand-sm bg-light">
-                    <a class="navbar-brand" href="{% url 'pages-home' %}">
-                        <div class = "logo">
-                            <img src="{{ MEDIA_URL }}/media/site_images/SP-log.png" style="width:200px;" alt="Sellpoint">
-                        </div>
-                    </a>
-                    <!-- Links -->
-                    <div class="navbar-nav mr-auto">
-                      <a class="nav-item nav-link" href="{% url 'ads' %}" style="color: black;
-    padding-right: 20px;">Torg</a>
-                      <a class="nav-item nav-link" href="#" style="color: black;">Om oss</a>
-                    </div>
-
-                    <!-- Navbar Høyre -->
-                    <div class="navbar-nav">
-                        {% if user.is_authenticated %}
-                            <a class="nav-item nav-link" href="#" style="color: black;
-    padding-right: 20px;">Opprett annonse</a>
-                            <a class="nav-item nav-link" href="{% url 'profile' %}" style="color: black;
-    padding-right: 20px;">Profil</a>
-                            <a class="nav-item nav-link" href="#" style="color: black;
-    padding-right: 20px;">Logg ut</a>
-                        {% else %}
-
-                          <a class="nav-item nav-link" href="#" style="color: black;
-    text-decoration: none;
-    padding-right: 20px;
-    font-weight: bold;">Logg inn</a>
-                          <a class="nav-item nav-link" href="#" style="color: black;
-    text-decoration: none;
-    border-style: solid;
-    padding: 8px;
-    border-width: 1px;
-    border-radius: 10px;">Ny bruker</a>
-                        {% endif %}
-                    </div>
-
-                </nav>
+          <a class="navbar-brand" href="{% url 'pages-home' %}">
+            <div class = "logo">
+                <img src="{{ MEDIA_URL }}/media/site_images/SP-log.png" style="width:200px;" alt="Sellpoint">
             </div>
+          </a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarToggle">
+            <div class="navbar-nav mr-auto">
+              <a class="nav-item nav-link" href="{% url 'ads' %}" style="color: black;
+                    padding-right: 20px;
+                    padding-left: 20px;"
+                >Torg</a>
+              <a class="nav-item nav-link" href="#" style="color: black;">Om oss</a>
+            </div>
+            <!-- Navbar Right Side -->
+            <div class="navbar-nav">
+                {% if user.is_authenticated %}
+                    <a class="nav-item nav-link" href="#" style="color: black;
+                        padding-right: 20px;"
+                    >Opprett annonse</a>
+                    <a class="nav-item nav-link" href="{% url 'profile' %}" style="color: black;
+                        padding-right: 20px;"
+                    >Profil</a>
+                    <a class="nav-item nav-link" href="#" style="color: black;
+                        padding-right: 20px;"
+                    >Logg ut</a>
+                {% else %}
+                  <a class="nav-item nav-link" href="#" style="color: black;
+                        text-decoration: none;
+                        padding-right: 20px;
+                        font-weight: bold;"
+                    >Logg inn</a>
+                  <a class="nav-item nav-link" href="#" style="color: black;
+                        text-decoration: none;
+                        border-style: solid;
+                        padding: 8px;
+                        border-width: 1px;
+                        border-radius: 10px;"
+                    >Opprett bruker</a>
+                {% endif %}
+            </div>
+          </div>
         </div>
+      </nav>
     </header>
+
 
     <!-- Main Container --> <!-- Dette er nyttig for å vise meldinger som f.eks 'ny bruker opprettet' -->
     <main role="main" class="container">
-      <div class="row">
-        <div class="col-md-8">
+      <div class="row" style="padding-top: 5%; margin: auto; width: 90%; ">
             {% if messages %}
                 {% for message in messages %}
                     <div class="alert alert-{{ message.tags }}">
@@ -80,7 +85,6 @@
                 {% endfor %}
             {% endif %}
             {% block content %}{% endblock content %}
-        </div>
       </div>
     </main>
 

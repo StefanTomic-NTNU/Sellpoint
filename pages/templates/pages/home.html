@@ -3,38 +3,31 @@
 
 <body>
 
-    <div class="container">
-
-        <div class="content-wrapper">
-            <div class="category-items-wrapper">
-
-                <div class="category-item-wrapper">
-                    <div class="category1">
-                        <a href="ads">
-                            <img src="{{ MEDIA_URL }}/media/site_images/kjoretoy.png" width="180" height="180">
-                        </a>
-                    </div>
+<div class="d-flex flex-wrap align-content-stretch" style="padding-top: 5%; margin: auto; width: 90%; ">
+    <a href="ads">
+        <div style="
+        margin: 20px 50px">
+            <div class = "rounded">
+            <img class="rounded" src="{{ MEDIA_URL }}/media/site_images/kjoretoy.png" width="180" height="180">
                 </div>
-
-                <div class="category-item-wrapper">
-                    <div class="category2">
-                        <a href="ads">
-                            <img src="{{ MEDIA_URL }}/media/site_images/el.png" width="180" height="180">
-                        </a>
-                    </div>
-                </div>
-
-                <div class="category-item-wrapper">
-                    <div class="category3">
-                        <a href="ads">
-                            <img src="{{ MEDIA_URL }}/media/site_images/mobler.png" width="180" height="180">
-                        </a>
-                    </div>
-                </div>
+        </div>
+    </a>
+    <a href="ads">
+        <div style="
+        margin: 20px 50px">
+            <div class = "rounded">
+            <img class="rounded" src="{{ MEDIA_URL }}/media/site_images/el.png" width="180" height="180">
             </div>
         </div>
-
-    </div>
-
+    </a>
+    <a href="ads">
+        <div style="
+        margin: 20px 50px">
+            <div class = "rounded">
+            <img class="rounded" src="{{ MEDIA_URL }}/media/site_images/mobler.png" width="180" height="180">
+                </div>
+        </div>
+    </a>
+</div>
 </body>
 {% endblock content %}

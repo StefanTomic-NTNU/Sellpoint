@@ -3,8 +3,8 @@ from django.contrib import admin
 from django.urls import path, include
 from profiles import views as profile_views
 from pages import views as pages_views
-from django.conf.urls.static import static
 from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('', include('pages.urls')),

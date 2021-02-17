@@ -5,6 +5,9 @@ A requirements.txt file is a file that lists all of the modules needed for the D
 The following command will install the packages according to the configuration file requirements.txt.
  ` pip install -r requirements.txt`
 
+To update requirements:
+` pip freeze > requirements.txt`
+
 To run the project:
  ` python manage.py runserver`
 

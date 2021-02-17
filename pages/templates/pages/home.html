@@ -1,16 +1,40 @@
 {% extends "pages/base.html" %}
 {% block content %}
-    {% for post in posts %}
-        <article class="media content-section">
-          <div class="media-body">
-            <div class="article-metadata">
-              <a class="mr-2" href="#">{{ post.author }}</a>
-                <!-- Se Django doc for å endre format på dato -->
-              <small class="text-muted">{{ post.last_updated|date:"j. b, Y G:i" }}</small>
+
+<body>
+
+    <div class="container">
+
+        <div class="content-wrapper">
+            <div class="category-items-wrapper">
+
+                <div class="category-item-wrapper">
+                    <div class="category1">
+                        <a href="">
+                            <img src="{{ MEDIA_URL }}/media/site_images/kjoretoy.png" width="180" height="180">
+                        </a>
+                    </div>
+                </div>
+
+                <div class="category-item-wrapper">
+                    <div class="category2">
+                        <a href="">
+                            <img src="{{ MEDIA_URL }}/media/site_images/el.png" width="180" height="180">
+                        </a>
+                    </div>
+                </div>
+
+                <div class="category-item-wrapper">
+                    <div class="category3">
+                        <a href="">
+                            <img src="{{ MEDIA_URL }}/media/site_images/mobler.png" width="180" height="180">
+                        </a>
+                    </div>
+                </div>
             </div>
-            <h2><a class="article-title" href="#">{{ post.title }}</a></h2>
-            <p class="article-content">{{ post.description }}</p>
-          </div>
-        </article>
-    {% endfor %}
+        </div>
+
+    </div>
+
+</body>
 {% endblock content %}

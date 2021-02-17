@@ -6,7 +6,7 @@
             Din profil
         </legend>
       <div class="media">
-        <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">
+        <img class="rounded-circle account-img" src="{{ MEDIA_URL }}/media/site_images/no-image-featured-image.png">
         <div class="media-body">
           <h2 class="account-heading"><!--{{ profile.username }}--> Ola Nordmann</h2>
           <p class="text-secondary"><!--{{ profile.email }}--> placeholder@epost.no</p>
@@ -20,7 +20,7 @@
                     Din profil
                 </legend>
                 -->
-                <!-- Crispy forms for å kunne oppdatere profil. u_form er kanskje uansett unødvendig.
+                <!-- Crispy forms for å kunne oppdatere profil. u_form er unødvendig hvis vi ikke har både user og profile.
                 {{ u_form|crispy }}
                 {{ p_form|crispy }}
                 -->

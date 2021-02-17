@@ -7,5 +7,5 @@ def ads(request):
     return render(request, 'advertisements/ads.html')
 
 
-def single_ad(request):
-    return render(request, 'advertisements/singleAd.html')
+def ad_detail(request):
+    return render(request, 'advertisements/ad_detail.html')

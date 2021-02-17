@@ -4,6 +4,7 @@ from advertisements import views
 
 urlpatterns = [
     path('', views.ads, name='ads'),
-    path('single_ad', views.single_ad, name='single-ad')
+    path('ad_detail', views.ad_detail, name='ad_detail'),
+    path('ad', views.ad_detail, name='ad_detail')
 ]
 

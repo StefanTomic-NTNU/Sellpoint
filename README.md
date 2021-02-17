@@ -14,4 +14,4 @@ To activate venv i gitpod: ` source venv/Scripts/activate`
 name: admin
 password: aR5!?kuRTui
 
-TEST
+

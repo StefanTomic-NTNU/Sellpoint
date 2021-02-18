@@ -1,0 +1,98 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" type="text/css" href="{% static 'pages/main.css' %}">
+
+    {% if title %}
+        <title>Sellpoint - {{ title }}</title>
+    {% else %}
+        <title>Sellpoint</title>
+    {% endif %}
+
+</head>
+<body>
+
+    <header class="site-header">
+      <nav class="navbar navbar-expand-sm bg-light">
+        <div class="container">
+          <a class="navbar-brand" href="{% url 'pages-home' %}">
+            <div class = "logo">
+                <img src="{{ MEDIA_URL }}/media/site_images/SP-log.png" style="width:200px;" alt="Sellpoint">
+            </div>
+          </a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarToggle">
+            <div class="navbar-nav mr-auto">
+              <a class="nav-item nav-link" href="{% url 'ads' %}" style="color: black;
+                    padding-right: 20px;
+                    padding-left: 20px;"
+                >Torg</a>
+              <a class="nav-item nav-link" href="#" style="color: black;">Om oss</a>
+            </div>
+            <!-- Navbar Right Side -->
+            <div class="navbar-nav">
+                {% if user.is_authenticated %}
+                    <a class="nav-item nav-link" href="#" style="color: black;
+                        padding-right: 20px;"
+                    >Opprett annonse</a>
+                    <a class="nav-item nav-link" href="{% url 'profile' %}" style="color: black;
+                        padding-right: 20px;"
+                    >Profil</a>
+                    <a class="nav-item nav-link" href="#" style="color: black;
+                        padding-right: 20px;"
+                    >Logg ut</a>
+                {% else %}
+                  <a class="nav-item nav-link" href="#" style="color: black;
+                        text-decoration: none;
+                        padding-right: 20px;
+                        font-weight: bold;"
+                    >Logg inn</a>
+                  <a class="nav-item nav-link" href="#" style="color: black;
+                        text-decoration: none;
+                        border-style: solid;
+                        padding: 8px;
+                        border-width: 1px;
+                        border-radius: 10px;"
+                    >Opprett bruker</a>
+                {% endif %}
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+
+    <!-- Main Container --> <!-- Dette er nyttig for å vise meldinger som f.eks 'ny bruker opprettet' -->
+    <main role="main" class="container">
+      <div class="row" style="padding-top: 5%; margin: auto; width: 90%; ">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+            {% block content %}{% endblock content %}
+      </div>
+    </main>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</body>
+</html>

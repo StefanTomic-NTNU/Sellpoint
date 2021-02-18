@@ -1,10 +1,12 @@
 from django.shortcuts import render
-
-# Create your views here.
+from .models import Advertisement
 
 
 def ads(request):
-    return render(request, 'advertisements/ads.html')
+    context = {
+        'advertisements': Advertisement.objects.all()
+    }
+    return render(request, 'advertisements/ads.html', context)
 
 
 def ad_detail(request):

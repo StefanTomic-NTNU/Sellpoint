@@ -3,13 +3,13 @@
 {% block content %}
     <div class="content-section">
         <legend class="border-bottom mb-4">
-            Din profil
+            Min profil
         </legend>
-      <div class="media">
-        <img class="rounded-circle account-img" src="{{ MEDIA_URL }}/media/site_images/no-image-featured-image.png">
+      <div class="media" >
+        <img class="rounded-circle account-img" src={{user.profile.image.url}}>
         <div class="media-body">
-          <h2 class="account-heading"><!--{{ profile.username }}--> Ola Nordmann</h2>
-          <p class="text-secondary"><!--{{ profile.email }}--> placeholder@epost.no</p>
+          <h2 class="account-heading">{{user.username}}</h2>
+          <p class="text-secondary">{{user.email}}</p>
         </div>
       </div>
       <form method="POST" enctype="multipart/form-data"> <!-- enctype sørger for at bildet blir lagret -->
@@ -27,7 +27,7 @@
             </fieldset>
             <div class="form-group">
                 <button class="btn btn-outline-info">
-                    Oppdater profil
+                    Endre profil
                 </button>
                 <button class="btn btn-outline-info">
                     Se Annonser

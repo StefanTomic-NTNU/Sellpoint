@@ -13,4 +13,4 @@ class Advertisement(models.Model):
     published = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete = models.CASCADE)
     def __str__(self):
-        return self.title +  ": $" + str(self.price)
+        return self.title +  ": NOK" + str(self.price)

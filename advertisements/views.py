@@ -25,3 +25,13 @@ class AdvertisementListView(ListView):
 
 class AdvertisementDetailView(DetailView):
     model = Advertisement
+
+
+class AdvertisementCreateView(LoginRequiredMixin, CreateView):
+    model = Advertisement
+    fields = ['title', 'description', 'price', 'image_main']
+    login_url = '/login'
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)

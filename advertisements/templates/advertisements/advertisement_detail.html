@@ -25,8 +25,8 @@
 
         {% if object.author == user %}
             <div>
-                <a class="btn btn-secondary btm-sm mt-1 mb-1" href="#">Rediger annonse</a>
-                <a class="btn btn-danger btm-sm mt-1 mb-1" href="#">Slett annonse</a>
+                <a class="btn btn-secondary btm-sm mt-1 mb-1" href="{% url 'ad-update' object.id %}">Rediger annonse</a>
+                <a class="btn btn-danger btm-sm mt-1 mb-1" href="{% url 'ad-delete' object.id %}">Slett annonse</a>
             </div>
         {% else %}
             <div>

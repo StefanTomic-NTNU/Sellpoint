@@ -1,0 +1,41 @@
+{% extends "pages/base.html" %}
+{% block content %}
+<div class = "container">
+    <div class = "advertisement-detail">
+        <a href="{% url 'ads' %}">
+            <button type="button" class="btn btn-outline-secondary">Tilbake til alle annonser</button>
+        </a>
+
+        <img class ="rounded float-right img-fluid" src="{{ object.image_main.url }}" style="width:500px; height:100%">
+
+        <h1 class ="font-weight-light" style="margin-top:40px">{{ object.title }}</h1>
+
+        <h2 class="font-weight-heavy" style="margin-top:10px">{{ object.price }} NOK </h2>
+
+        <p>
+            {{ object.description }}
+        </p>
+
+        <h3> {{ object.latitude }}N, {{ object.longitude }}E </h3>
+
+
+        <h3 style="padding: 30px 0px"> {{ object.author }} </h3>
+
+
+
+        {% if object.author == user %}
+            <div>
+                <a class="btn btn-secondary btm-sm mt-1 mb-1" href="#">Rediger annonse</a>
+                <a class="btn btn-danger btm-sm mt-1 mb-1" href="#">Slett annonse</a>
+            </div>
+        {% else %}
+            <div>
+                <a class="btn btn-outline-secondary" href="#" >Ta kontakt!</a>
+            </div>
+        {% endif %}
+
+         <small class="text-muted">Publisert {{ object.published|date:"j. b, Y G:i" }}</small>
+    </div>
+</div>
+
+{% endblock content %}

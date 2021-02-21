@@ -2,7 +2,7 @@
 {% block content %}
 <div class="d-flex flex-wrap align-content-stretch" style="padding-top: 5%; margin: auto; width: 90%; ">
     {% for advertisement in advertisements %}
-    <a href="{% url 'ad-detail'%}">
+    <a href="{% url 'ad-detail' advertisement.id %}">
         <figure class="figure" style="
         margin: 20px 50px">
             <img class="figure-img img-fluid rounded" src="{{ advertisement.image_main.url }}" style="width: 250px">

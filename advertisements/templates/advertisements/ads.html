@@ -2,18 +2,31 @@
 {% block content %}
 <div class="d-flex flex-wrap align-content-stretch" style="padding-top: 5%; margin: auto; width: 90%; ">
     {% for advertisement in advertisements %}
-        <article class="media content-section">
+    <a href="{% url 'ad-detail'%}">
+        <figure class="figure" style="
+        margin: 20px 50px">
             <img class="figure-img img-fluid rounded" src="{{ advertisement.image_main.url }}" style="width: 250px">
-          <div class="media-body">
-            <div class="article-metadata">
+    <!--
               <a class="mr-2" href="#">{{ advertisement.author }}</a>
-                <!--Se Django doc for å endre format på dato-->
               <small class="text-muted">{{ advertisement.published|date:"j. b, Y G:i" }}</small>
+    --><div class="d-flex">
+            <figcaption class="text-muted text-left"><h5 style="
+                font-weight: normal;
+                display: block;
+                width: 100px;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;">
+                {{ advertisement.title }}</h5></figcaption>
+
+              <figcaption class="figure-caption text-right">
+
+                  <h5>{{ advertisement.price }}</h5>
+              </figcaption>
             </div>
-            <h2><a class="article-title" href="{% url 'ad-detail'%}">{{ advertisement.title }}</a></h2>
-            <p class="article-content">{{ advertisement.description }}</p>
-          </div>
-        </article>
+        </figure>
+
+    </a>
     {% endfor %}
-    </div>
+</div>
 {% endblock content %}

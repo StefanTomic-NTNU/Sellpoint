@@ -75,6 +75,16 @@ body {
 
 
 
+.ad-title {
+    display: block;
+    width: 100px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+
+
 .article-title {
   color: #444444;
 }

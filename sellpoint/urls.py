@@ -12,6 +12,7 @@ urlpatterns = [
     path('advertisements/', include('advertisements.urls')),
     path('admin/', admin.site.urls),
     path('profile/', profile_views.profile, name='profile'),
+    path('register/', profile_views.register, name='register'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -6,27 +6,26 @@
         <figure class="figure" style="
         margin: 20px 50px">
             <img class="figure-img img-fluid rounded" src="{{ advertisement.image_main.url }}" style="width: 250px">
-    <!--
+        <!--
               <a class="mr-2" href="#">{{ advertisement.author }}</a>
               <small class="text-muted">{{ advertisement.published|date:"j. b, Y G:i" }}</small>
-    --><div class="d-flex">
-            <figcaption class="text-muted text-left"><h5 style="
-                font-weight: normal;
-                display: block;
-                width: 100px;
-                overflow: hidden;
-                white-space: nowrap;
-                text-overflow: ellipsis;">
-                {{ advertisement.title }}</h5></figcaption>
+        --><div class="d-flex">
+                <figcaption class="text-muted text-left"><h5 style="
+                    font-weight: normal;
+                    display: block;
+                    width: 100px;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;">
+                    {{ advertisement.title }}</h5></figcaption>
 
-              <figcaption class="figure-caption text-right">
+                  <figcaption class="figure-caption text-right">
 
-                  <h5>{{ advertisement.price }}</h5>
-              </figcaption>
-            </div>
-        </figure>
-
-    </a>
+                      <h5>{{ advertisement.price }}</h5>
+                  </figcaption>
+                </div>
+            </figure>
+        </a>
     {% endfor %}
 </div>
 {% endblock content %}

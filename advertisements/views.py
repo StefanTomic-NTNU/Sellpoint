@@ -8,7 +8,7 @@ def ads(request):
     context = {
         'advertisements': Advertisement.objects.all()
     }
-    return render(request, 'advertisements/ads.html', context)
+    return render(request, 'advertisements/ads_2.html', context)
 
 #
 # def ad_detail(request):
@@ -17,7 +17,7 @@ def ads(request):
 
 class AdvertisementListView(ListView):
     model = Advertisement
-    template_name = 'advertisements/ads.html'
+    template_name = 'advertisements/ads_2.html'
     context_object_name = 'advertisements'
     ordering = ['-published']    # Forteller at annonsene skal være sortert nyest-eldst publisert'
     paginate_by = 8     # Nyttig for når vi skal implementere pagination (flere sider med ads)'

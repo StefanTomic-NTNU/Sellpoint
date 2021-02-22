@@ -72,3 +72,17 @@ body {
     -webkit-filter: drop-shadow(5px 5px 5px rgb(206, 206, 206));
     filter: drop-shadow(5px 5px 5px rgb(206, 206, 206));
 }
+
+.btn-blue {
+    border: 2px solid #34B6FF;
+    color: #34B6FF;
+}
+
+.btn-blue:hover {
+    border: 2px solid #34B6FF;
+    background-color: #34B6FF;
+}
+
+.link-blue {
+    color: #34B6FF;
+}

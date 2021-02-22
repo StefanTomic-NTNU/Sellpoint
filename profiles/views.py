@@ -10,7 +10,7 @@ def register(request):
             form.save()
             username = form.cleaned_data.get('username')
             messages.success(request, f'Bruker {username} er nå registrert!')
-            return redirect('pages-home')
+            return redirect('login')
     else:
         form = UserRegisterForm()
     return render(request, 'profiles/register.html', {'form': form})

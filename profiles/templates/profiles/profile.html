@@ -7,6 +7,7 @@
         <div class="media-body" style="margin-left: 50px; margin-top: 30px">
           <h2 class="account-heading">{{user.username}}</h2>
           <p class="text-secondary">{{user.profile.birth_date}}</p>
+            <p class="text-secondary">{{user.profile.latitude}}N, {{user.profile.longitude}}E</p>
         </div>
       </div>
       <form method="POST" enctype="multipart/form-data"> <!-- enctype sørger for at bildet blir lagret -->
@@ -27,7 +28,7 @@
                     Endre profil
                 </button>
                 <button class="btn btn-outline-info">
-                    Se Annonser
+                    Mine annonser
                 </button>
             </div>
         </form>

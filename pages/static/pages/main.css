@@ -9,6 +9,20 @@ body {
     grid-template-columns: 1fr;
 }
 
+.btn-blue {
+    border: 2px solid #34B6FF;
+    color: #34B6FF;
+}
+
+.btn-blue:hover {
+    border: 2px solid #34B6FF;
+    background-color: #34B6FF;
+}
+
+.link-blue {
+    color: #34B6FF;
+}
+
 .nounderline {
   text-decoration: none !important
 }

@@ -1,9 +1,7 @@
 {% extends "pages/base.html" %}
 {% block content %}
 <h1 class="mb-3">Mine annonser</h1>
-<div class="d-flex flex-wrap align-content-stretch" style = "
-    padding-top: 5%;
-    margin: auto;">
+<div class="d-flex flex-wrap align-content-stretch" style="padding-top: 5%; margin: auto; width: 100%; justify-content: space-around;">
     {% for advertisement in advertisements %}
     <div style="margin:50px">
         <div class="ad-polaroid rounded" style="

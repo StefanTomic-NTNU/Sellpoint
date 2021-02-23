@@ -10,7 +10,7 @@
             <p class="text-secondary">{{user.profile.latitude}}N, {{user.profile.longitude}}E</p>
         </div>
       </div>
-      <form method="POST" enctype="multipart/form-data"> <!-- enctype sørger for at bildet blir lagret -->
+      <form enctype="multipart/form-data"> <!-- enctype sørger for at bildet blir lagret -->
             {% csrf_token %}
             <fieldset class="form-group">
                 <!--
@@ -24,11 +24,11 @@
                 -->
             </fieldset>
             <div class="form-group" style="margin-top:30px">
-                <button class="btn btn-outline-info">
+                <!--button class="btn btn-outline-info">
                     Endre profil
-                </button>
+                </button-->
                 <button class="btn btn-outline-info">
-                    Mine annonser
+                    <a class="nounderline" href="{% url 'user-ads' user.username %}">Mine annonser</a>
                 </button>
             </div>
         </form>

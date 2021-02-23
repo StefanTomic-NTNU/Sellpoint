@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.contrib.auth.models import User
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Advertisement
@@ -8,7 +9,7 @@ def ads(request):
     context = {
         'advertisements': Advertisement.objects.all()
     }
-    return render(request, 'advertisements/ads_2.html', context)
+    return render(request, 'advertisements/ads.html', context)
 
 #
 # def ad_detail(request):
@@ -17,14 +18,30 @@ def ads(request):
 
 class AdvertisementListView(ListView):
     model = Advertisement
-    template_name = 'advertisements/ads_2.html'
+    template_name = 'advertisements/ads.html'
     context_object_name = 'advertisements'
     ordering = ['-published']    # Forteller at annonsene skal være sortert nyest-eldst publisert'
     paginate_by = 8     # Nyttig for når vi skal implementere pagination (flere sider med ads)'
 
 
+class UserAdvertisementListView(ListView):
+    model = Advertisement
+    template_name = 'advertisements/user_ads.html'
+    context_object_name = 'advertisements'
+    paginate_by = 8
+
+    def get_queryset(self):
+        user = get_object_or_404(User, username=self.kwargs.get('username'))
+        return Advertisement.objects.filter(author=user).order_by('-published')
+
+
 class AdvertisementDetailView(DetailView):
     model = Advertisement
+
+
+class UserAdvertisementDetailView(DetailView):
+    model = Advertisement
+    template_name = 'advertisements/user_advertisement_detail.html'
 
 
 class AdvertisementCreateView(LoginRequiredMixin, CreateView):
@@ -77,3 +94,4 @@ class AdvertisementDeleteView(
             return True
         else:
             return False
+

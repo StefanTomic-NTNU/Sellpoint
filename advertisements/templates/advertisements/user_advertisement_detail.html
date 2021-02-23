@@ -2,8 +2,8 @@
 {% block content %}
 <div class = "container">
     <div class = "advertisement-detail">
-        <a href="{% url 'ads' %}">
-            <button type="button" class="btn btn-outline-secondary">Tilbake til alle annonser</button>
+        <a href="{% url 'user-ads' user.username %}">
+            <button type="button" class="btn btn-outline-secondary">Tilbake til mine annonser</button>
         </a>
         {% include "./advertisement_detail_base.html" %}
     </div>

@@ -1,6 +1,6 @@
 {% extends "pages/base.html" %}
 {% block content %}
-<h1 class="mb-3">Møbler</h1>
+<h1 class="mb-3">Mine annonser</h1>
 <div class="d-flex flex-wrap align-content-stretch" style = "
     padding-top: 5%;
     margin: auto;">
@@ -11,7 +11,7 @@
               height: 256px;
               background-color: white;
               box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
-            <a class="nounderline" href="{% url 'ad-detail' advertisement.id %}">
+            <a class="nounderline" href="{% url 'user-ad-detail' user.username advertisement.id %}">
             <img class="img-fluid" src="{{ advertisement.image_main.url }}" style="width:100%; height:210px">
 
             <div class="d-flex text-decoration-none" style="padding: 10px 15px">

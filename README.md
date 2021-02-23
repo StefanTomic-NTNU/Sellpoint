@@ -13,6 +13,11 @@ To run the project:
 
 To activate venv i gitpod: ` source venv/Scripts/activate`
 
+### Kjøre tester
+For å kjøre tester og generere report:
+` coverage run --source='app-navn-her' manage.py test && coverage report && coverage html`
+Reports blir genrert i htmlcov-mappe
+
 #### Superuser
 name: admin
 password: aR5!?kuRTui

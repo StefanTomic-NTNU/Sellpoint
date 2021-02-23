@@ -1,65 +1,31 @@
 {% extends "pages/base.html" %}
 {% block content %}
-
-    <div>
-        <h1>Annonser</h1>
-
-        <div class="Bilde">
-            <a href="{% url 'ad_detail' %}">
-                <img src="{{ MEDIA_URL }}/media/site_images/no-image-featured-image.png" alt="Eksempelbilde">
-                <p>Bildetekst</p>
-            </a>
-        </div>
-
-        <div class="Bilde">
-            <a href="{% url 'ad_detail' %}">
-                <img src="{{ MEDIA_URL }}/media/site_images/no-image-featured-image.png" alt="Eksempelbilde">
-                <p>Bildetekst</p>
-            </a>
-        </div>
-
-        <div class="Bilde">
-            <a href="{% url 'ad_detail' %}">
-                <img src="{{ MEDIA_URL }}/media/site_images/no-image-featured-image.png" alt="Eksempelbilde">
-                <p>Bildetekst</p>
-            </a>
-        </div>
-
-        <div class="Bilde">
-            <a href="{% url 'ad_detail' %}">
-                <img src="{{ MEDIA_URL }}/media/site_images/no-image-featured-image.png" alt="Eksempelbilde">
-                <p>Bildetekst</p>
-            </a>
-        </div>
-
-        <div class="Bilde">
-            <a href="{% url 'ad_detail' %}">
-                <img src="{{ MEDIA_URL }}/media/site_images/no-image-featured-image.png" alt="Eksempelbilde">
-                <p>Bildetekst</p>
-            </a>
-        </div>
-
-    </div>
-{% endblock content %}
-
-<!-- To connect with models
-
-
+<div class="d-flex flex-wrap align-content-stretch" style="padding-top: 5%; margin: auto; width: 90%; ">
     {% for advertisement in advertisements %}
-        <article class="media content-section">
-            <img class="rounded article-img" src="{{ advertisement.image.url }}">
-          <div class="media-body">
-            <div class="article-metadata">
-              <a class="mr-2" href="#">{{ post.author }}</a>
-                Se Django doc for å endre format på dato
+    <a href="{% url 'ad-detail' advertisement.id %}">
+        <figure class="figure" style="
+        margin: 20px 50px">
+            <img class="figure-img img-fluid rounded" src="{{ advertisement.image_main.url }}" style="width: 250px">
+        <!--
+              <a class="mr-2" href="#">{{ advertisement.author }}</a>
               <small class="text-muted">{{ advertisement.published|date:"j. b, Y G:i" }}</small>
-            </div>
-            <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ advertisement.title }}</a></h2>
-            <p class="article-content">{{ advertisement.description }}</p>
-          </div>
-        </article>
+        --><div class="d-flex">
+                <figcaption class="text-muted text-left"><h5 style="
+                    font-weight: normal;
+                    display: block;
+                    width: 100px;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;">
+                    {{ advertisement.title }}</h5></figcaption>
+
+                  <figcaption class="figure-caption text-right">
+
+                      <h5>{{ advertisement.price }}</h5>
+                  </figcaption>
+                </div>
+            </figure>
+        </a>
     {% endfor %}
-
-    </div>
-
--->
+</div>
+{% endblock content %}

@@ -1,6 +1,5 @@
 {% load static %}
 
-<!DOCTYPE html>
 <html lang="en">
 <head>
 
@@ -50,16 +49,16 @@
                     <a class="nav-item nav-link" href="{% url 'profile' %}" style="color: black;
                         padding-right: 20px;"
                     >Profil</a>
-                    <a class="nav-item nav-link" href="#" style="color: black;
+                    <a class="nav-item nav-link" href="/logout" style="color: black;
                         padding-right: 20px;"
                     >Logg ut</a>
                 {% else %}
-                  <a class="nav-item nav-link" href="#" style="color: black;
+                  <a class="nav-item nav-link" href="/login" style="color: black;
                         text-decoration: none;
                         padding-right: 20px;
                         font-weight: bold;"
                     >Logg inn</a>
-                  <a class="nav-item nav-link" href="#" style="color: black;
+                  <a class="nav-item nav-link" href="/register/" style="color: black;
                         text-decoration: none;
                         border-style: solid;
                         padding: 8px;

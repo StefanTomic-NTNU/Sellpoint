@@ -1,0 +1,11 @@
+{% extends "pages/base.html" %}
+{% block content %}
+    <div class="container" style="max-width:600px;">
+        <h2>Du er nå logget ut</h2>
+        <div class="border-top pt-3">
+            <small class="text-muted">
+                <a class="link-blue" href="{% url 'login' %}">Logg inn igjen</a>
+            </small>
+        </div>
+    </div>
+{% endblock content %}

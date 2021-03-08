@@ -44,129 +44,64 @@
                 <div class="mr-auto">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'ads' %}" style="color: black;"
-                            >Torg</a>
+                            <!--Må fjerne hover effekt i stylesheet, og legge til stylen i stylesheet.-->
+                            <button class="bg-light nav-button" style="border: none;">
+                                <a class="nav-link" href="{% url 'ads' %}" style="color: black;"
+                                >Torg</a>
+                            </button>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#" style="color: black;"
-                            >Om oss</a>
+                            <button class="bg-light nav-button" style="border: none;">
+                                <a class="nav-link" href="#" style="color: black;"
+                                >Om oss</a>
+                            </button>
                         </li>
                     </ul>
                 </div>
                 {% if user.is_authenticated %}
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="#" style="color: black;"
-                        >Opprett annonse</a>
+                        <button class="bg-light nav-button" style="border: none;">
+                            <a class="nav-link" href="#" style="color: black;"
+                            >Opprett annonse</a>
+                        </button>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'profile' %}" style="color: black;"
-                        >Profil</a>
+                        <button class="bg-light nav-button" style="border: none;">
+                            <a class="nav-link" href="{% url 'profile' %}" style="color: black;"
+                            >Profil</a>
+                        </button>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" style="color: black;"
-                        >Logg ut</a>
+                        <button class="bg-light nav-button" style="font-weight: bold;
+                                    border: solid black 2px;
+                                    border-radius: 10px;">
+                            <a class="nav-link" href="#" style="color: black;"
+                            >Logg ut</a>
+                        </button>
                     </li>
                 </ul>
                 {% else %}
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="#" style="color: black;"
-                        >Logg inn</a>
+                         <button class="bg-light nav-button" style="font-weight: bold;
+                                    border: solid black 2px;
+                                    border-radius: 10px;">
+                            <a class="nav-link" href="#" style="color: black;"
+                            >Logg inn</a>
+                         </button>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#"
-                        >Opprett bruker</a>
+                        <button class="bg-light nav-button" style="border: none;">
+                            <a class="nav-link" href="#" style="color: black;"
+                            >Opprett bruker</a>
+                        </button>
                     </li>
                 </ul>
                 {% endif %}
             </div>
         </nav>
     </header>
-      <!--<nav class="navbar navbar-expand-md bg-light">
-        <div class="container">
-          <a class="navbar-brand" href="{% url 'pages-home' %}">
-            <div class = "logo">
-                <img src="{{ MEDIA_URL }}/media/site_images/SP-log.png" style="width:200px;" alt="Sellpoint">
-            </div>
-          </a>
-          <!--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon" style="color: black;
-                        text-decoration: none;
-                        border-style: solid;
-                        padding: 8px;
-                        border-width: 1px;
-                        border-radius: 10px;"></span>
-          </button>-->
-          <!--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
-             <span class="" role="button" ><i class="fa fa-bars" aria-hidden="true" style="color:black"></i></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarToggle">
-            <div class="navbar-nav mr-auto">
-              <ul class="navbar-nav">
-              <li class="nav-item">
-                  <a class="nav-link" href="{% url 'ads' %}" style="color: black;
-
-                    padding-right: 20px;
-                    padding-left: 20px;"
-                      >Torg</a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="#" style="color: black;"
-                      >Om oss</a>
-                  </li>
-              </ul>
-            </div>
-            <!-- Navbar Right Side -->
-            <!--<div class="navbar-nav">
-                {% if user.is_authenticated %}
-                <ul class="navbar-nav text-left">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#" style="color: black;
-                        padding-right: 20px;"
-                        >Opprett annonse</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'profile' %}" style="color: black;
-
-                        padding-right: 20px;"
-                        >Profil</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#" style="color: black;
-
-                        padding-right: 20px;"
-                        >Logg ut</a>
-                    </li>
-                </ul>
-                {% else %}
-                <ul class="navbar-nav text-left">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#" style="color: black;
-
-                        text-decoration: none;
-                        padding-right: 20px;
-                        font-weight: bold;"
-                        >Logg inn</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#" style="color: black;
-
-                        text-decoration: none;
-                        //border-style: solid;
-                        padding: 8px;
-                        //border-width: 1px;
-                        //border-radius: 10px;"
-                        >Opprett bruker</a>
-                    </li>
-                </ul>
-                {% endif %}
-            </div>
-          </div>
-        </div>
-      </nav>
-    </header>-->
-
 
     <!-- Main Container --> <!-- Dette er nyttig for å vise meldinger som f.eks 'ny bruker opprettet' -->
     <main role="main" class="container">

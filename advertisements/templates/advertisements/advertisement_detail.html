@@ -1,0 +1,12 @@
+{% extends "pages/base.html" %}
+{% block content %}
+<div class = "container">
+    <div class = "advertisement-detail">
+        <a href="{% url 'ads' %}">
+            <button type="button" class="btn btn-outline-secondary">Tilbake til alle annonser</button>
+        </a>
+        {% include "./advertisement_detail_base.html" %}
+    </div>
+</div>
+
+{% endblock content %}

@@ -2,17 +2,16 @@
 {% load crispy_forms_tags %}
 {% block content %}
     <div class="content-section">
-        <legend class="border-bottom mb-4">
-            Din profil
-        </legend>
-      <div class="media">
-        <img class="rounded-circle account-img" src="{{ MEDIA_URL }}/media/site_images/no-image-featured-image.png">
-        <div class="media-body">
-          <h2 class="account-heading"><!--{{ profile.username }}--> Ola Nordmann</h2>
-          <p class="text-secondary"><!--{{ profile.email }}--> placeholder@epost.no</p>
+      <div class="media" >
+        <img class="rounded-circle account-img" src={{user.profile.image.url}} width="200" height="200">
+        <div class="media-body" style="margin-left: 50px; margin-top: 30px">
+            <h2 class="account-heading">{{user.username}}</h2>
+            <p class="text-secondary">{{user.profile.birth_date}}</p>
+            <p class="text-secondary">{{user.profile.latitude}}N, {{user.profile.longitude}}E</p>
+            <p class="text-secondary">{{user.email}}</p>
         </div>
       </div>
-      <form method="POST" enctype="multipart/form-data"> <!-- enctype sørger for at bildet blir lagret -->
+      <form enctype="multipart/form-data"> <!-- enctype sørger for at bildet blir lagret -->
             {% csrf_token %}
             <fieldset class="form-group">
                 <!--
@@ -25,12 +24,12 @@
                 {{ p_form|crispy }}
                 -->
             </fieldset>
-            <div class="form-group">
+            <div class="form-group" style="margin-top:30px">
+                <!--button class="btn btn-outline-info">
+                    Endre profil
+                </button-->
                 <button class="btn btn-outline-info">
-                    Oppdater profil
-                </button>
-                <button class="btn btn-outline-info">
-                    Se Annonser
+                    <a class="nounderline" href="{% url 'user-ads' user.username %}">Mine annonser</a>
                 </button>
             </div>
         </form>

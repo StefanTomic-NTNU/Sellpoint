@@ -1,6 +1,5 @@
 {% load static %}
 
-<!DOCTYPE html>
 <html lang="en">
 <head>
 
@@ -50,19 +49,19 @@
                                 >Torg</a>
                             </button>
                         </li>
-                        <li class="nav-item">
+                        <!--<li class="nav-item">
                             <button class="bg-light nav-button" style="border: none;">
                                 <a class="nav-link" href="#" style="color: black;"
                                 >Om oss</a>
                             </button>
-                        </li>
+                        </li>-->
                     </ul>
                 </div>
                 {% if user.is_authenticated %}
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <button class="bg-light nav-button" style="border: none;">
-                            <a class="nav-link" href="#" style="color: black;"
+                            <a class="nav-link" href="{% url 'ad-create' %}" style="color: black;"
                             >Opprett annonse</a>
                         </button>
                     </li>
@@ -76,7 +75,7 @@
                         <button class="bg-light nav-button" style="font-weight: bold;
                                     border: solid black 2px;
                                     border-radius: 10px;">
-                            <a class="nav-link" href="#" style="color: black;"
+                            <a class="nav-link" href="/logout" style="color: black;"
                             >Logg ut</a>
                         </button>
                     </li>
@@ -87,13 +86,13 @@
                          <button class="bg-light nav-button" style="font-weight: bold;
                                     border: solid black 2px;
                                     border-radius: 10px;">
-                            <a class="nav-link" href="#" style="color: black;"
+                            <a class="nav-link" href="/login" style="color: black;"
                             >Logg inn</a>
                          </button>
                     </li>
                     <li class="nav-item">
                         <button class="bg-light nav-button" style="border: none;">
-                            <a class="nav-link" href="#" style="color: black;"
+                            <a class="nav-link" href="/register/" style="color: black;"
                             >Opprett bruker</a>
                         </button>
                     </li>
@@ -105,7 +104,7 @@
 
     <!-- Main Container --> <!-- Dette er nyttig for å vise meldinger som f.eks 'ny bruker opprettet' -->
     <main role="main" class="container">
-      <div class="row" style="padding-top: 5%; margin: auto; width: 90%; ">
+      <div class="row" style="padding-top: 5%; margin: auto; width: 100%; ">
             {% if messages %}
                 {% for message in messages %}
                     <div class="alert alert-{{ message.tags }}">

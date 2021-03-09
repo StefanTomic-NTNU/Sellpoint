@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.urls import reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Advertisement, Category
 
@@ -87,14 +88,7 @@ class CategoryAdvertisementDetailView(DetailView):
 
 class AdvertisementCreateView(LoginRequiredMixin, CreateView):
     model = Advertisement
-    fields = ['title', 'description', 'price', 'image_main']
-    labels = {      # Dette gjør ingenting atm..
-        'title':'Tittel',
-        'description':'Beskrivelse',
-        'price':'Pris',
-        'image_main':'Bilde',
-    }
-    login_url = '/login'
+    fields = ['title', 'description', 'price', 'category', 'image_main']
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -107,7 +101,7 @@ class AdvertisementUpdateView(
     UpdateView):
 
     model = Advertisement
-    fields = ['title', 'description', 'price', 'image_main']
+    fields = ['title', 'description', 'price', 'category', 'image_main']
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -119,6 +113,15 @@ class AdvertisementUpdateView(
             return True
         else:
             return False
+
+    def get_success_url(self):
+        # find your next url here
+        next_url = self.request.POST.get('next', None)  # here method should be GET or POST.
+        advertisement = self.get_object()
+        if next_url:
+            return advertisement.category + '/' + advertisement.id  # you can include some query strings as well
+        else:
+            return reverse('ads')  # what url you wish to return
 
 
 class AdvertisementDeleteView(

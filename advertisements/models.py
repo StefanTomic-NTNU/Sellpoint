@@ -21,7 +21,7 @@ class Advertisement(models.Model):
     longitude = models.DecimalField(max_digits=9, decimal_places=6, default=10.421906)
     published = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    category = models.ForeignKey(Category, default=1, on_delete=models.CASCADE, related_name='advertisement')
+    category = models.ForeignKey(Category, default=1, on_delete=models.DO_NOTHING, related_name='advertisement')
 
     def get_absolute_url(self):
         return reverse('ad-detail', kwargs={'pk': self.pk})

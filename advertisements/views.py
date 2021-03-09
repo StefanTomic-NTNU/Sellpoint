@@ -2,10 +2,10 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Advertisement
+from .models import Advertisement, Category
 
 
-def ads(request):
+def advertisement_list(request):
     context = {
         'advertisements': Advertisement.objects.all()
     }
@@ -26,13 +26,37 @@ class AdvertisementListView(ListView):
 
 class UserAdvertisementListView(ListView):
     model = Advertisement
-    template_name = 'advertisements/user_ads.html'
+    template_name = 'advertisements/ads.html'
     context_object_name = 'advertisements'
     paginate_by = 8
 
     def get_queryset(self):
         user = get_object_or_404(User, username=self.kwargs.get('username'))
         return Advertisement.objects.filter(author=user).order_by('-published')
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+        user = get_object_or_404(User, username=self.kwargs.get('username'))
+        context['username'] = user.username
+        return context
+
+class CategoryAdvertisementListView(ListView):
+    model = Advertisement
+    template_name = 'advertisements/ads.html'
+    context_object_name = 'advertisements'
+    paginate_by = 8
+
+    def get_queryset(self):
+        category = get_object_or_404(Category, name=self.kwargs.get('category'))
+        return Advertisement.objects.filter(category=category).order_by('-published')
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+        category = get_object_or_404(Category, name=self.kwargs.get('category'))
+        context['category_name'] = category.name
+        return context
 
 
 class AdvertisementDetailView(DetailView):
@@ -41,7 +65,24 @@ class AdvertisementDetailView(DetailView):
 
 class UserAdvertisementDetailView(DetailView):
     model = Advertisement
-    template_name = 'advertisements/user_advertisement_detail.html'
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+        user = get_object_or_404(User, username=self.kwargs.get('username'))
+        context['username'] = user.username
+        return context
+
+
+class CategoryAdvertisementDetailView(DetailView):
+    model = Advertisement
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+        category = get_object_or_404(Category, name=self.kwargs.get('category'))
+        context['category_name'] = category.name
+        return context
 
 
 class AdvertisementCreateView(LoginRequiredMixin, CreateView):

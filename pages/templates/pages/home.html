@@ -5,40 +5,20 @@
 
 <div class="d-flex flex-wrap align-content-stretch" style="padding-top: 5%; margin: auto; width: 100%; justify-content: space-around;">
 
+    {% for category in categories %}
+
         <div style="
         padding: 20px 50px">
-             <a href="ads">
+             <a href="{{'ads'}}/{{category.name}}">
             <div class = "rounded">
-            <img class="rounded" src="{{ MEDIA_URL }}/media/site_images/kjoretoy.png" width="180" height="180"
+            <img class="rounded" src="{{ category.image.url }}" width="180" height="180"
                  style="background-color: white;
               box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
                 </div>
                  </a>
         </div>
 
-
-        <div style="
-        padding: 20px 50px">
-            <a href="ads">
-            <div class = "rounded">
-            <img class="rounded" src="{{ MEDIA_URL }}/media/site_images/el.png" width="180" height="180"
-                 style="background-color: white;
-              box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
-            </div>
-                </a>
-        </div>
-
-
-        <div style="
-        padding: 20px 50px">
-            <a href="ads">
-            <div class = "rounded">
-            <img class="rounded" src="{{ MEDIA_URL }}/media/site_images/mobler.png" width="180" height="180"
-            style="background-color: white;
-              box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
-                </div>
-                </a>
-        </div>
+    {% endfor %}
 
 </div>
 </body>

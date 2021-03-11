@@ -4,15 +4,39 @@
       <div class="media" >
         <img class="rounded-circle account-img" src={{user.profile.image.url}} width="200" height="200">
         <div class="media-body" style="margin-left: 50px; margin-top: 30px">
-            <h2 class="account-heading">{{object.user.username}}</h2>
-            <p class="text-secondary">{{object.birth_date}}</p>
-            <p class="text-secondary">{{object.latitude}}N, {{object.longitude}}E</p>
-            <p class="text-secondary">{{object.user.email}}</p>
+            {% if another_user %}
+            <h2 class="account-heading">{{another_user.username}}</h2>
+            {% else %}
+            <h2 class="account-heading">{{user.username}}</h2>
+            {% endif %}
+            {% if another_user %}
+            <p class="text-secondary">{{another_user.birth_date}}</p>
+            {% else %}
+            <p class="text-secondary">{{user.birth_date}}</p>
+            {% endif %}
+            {% if another_user %}
+            <p class="text-secondary">{{another_user.profile.latitude}}N, {{another_user.profile.longitude}}E</p>
+            {% else %}
+            <p class="text-secondary">{{user.profile.latitude}}N, {{user.profile.longitude}}E</p>
+            {% endif %}
+            {% if another_user %}
+            <p class="text-secondary">{{another_user.email}}</p>
+            {% else %}
+            <p class="text-secondary">{{user.email}}</p>
+            {% endif %}
         </div>
       </div>
     <div class="form-group" style="margin-top:30px">
         <button class="btn btn-outline-info">
-            <a class="nounderline" href="{% url 'user-ads' object.user.username %}">{{object.user.username}}s annonser</a>
+            {% if another_user %}
+            <a class="nounderline" href="{% url 'user-ads' another_user.username %}">
+                {{another_user.username}}'s annonser
+            </a>
+            {% else %}
+            <a class="nounderline" href="{% url 'user-ads' user.username %}">
+                Mine annonser
+            </a>
+            {% endif %}
                 </button>
         </div>
     </div>

@@ -1,4 +1,5 @@
-from django.shortcuts import render, redirect
+from django.contrib.auth.models import User
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
@@ -22,9 +23,15 @@ def register(request):
 
 @login_required
 def profile(request):
-    return render(request, 'profiles/profile.html')
+    return render(request, 'profiles/profile_detail.html')
 
 
 class ProfileDetailView(DetailView):
     model = Profile
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = get_object_or_404(User, pk=self.kwargs.get('pk'))
+        context['another_user'] = user
+        return context
 

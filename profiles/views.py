@@ -27,4 +27,4 @@ def profile(request):
 
 class ProfileDetailView(DetailView):
     model = Profile
-    #template_name = 'profiles/profile.html'
+

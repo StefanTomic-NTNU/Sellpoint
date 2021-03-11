@@ -1,6 +1,5 @@
 from http import HTTPStatus
 from django.urls import reverse
-from profiles.views import ProfileDetailView
 from django.test import TestCase
 from django.contrib.auth.models import User
 from profiles.models import Profile

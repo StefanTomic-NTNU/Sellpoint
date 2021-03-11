@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.views.generic import DetailView
+from .models import Profile
 from .forms import UserRegisterForm
 
 
@@ -20,3 +22,8 @@ def register(request):
 @login_required
 def profile(request):
     return render(request, 'profiles/profile.html')
+
+
+class ProfileDetailView(DetailView):
+    model = Profile
+    #template_name = 'profiles/profile.html'

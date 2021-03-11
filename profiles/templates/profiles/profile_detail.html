@@ -10,6 +10,11 @@
             <p class="text-secondary">{{object.user.email}}</p>
         </div>
       </div>
+    <div class="form-group" style="margin-top:30px">
+        <button class="btn btn-outline-info">
+            <a class="nounderline" href="{% url 'user-ads' object.user.username %}">{{object.user.username}}s annonser</a>
+                </button>
+        </div>
     </div>
 
 {% endblock content %}

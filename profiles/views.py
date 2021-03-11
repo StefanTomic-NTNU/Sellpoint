@@ -20,3 +20,7 @@ def register(request):
 @login_required
 def profile(request):
     return render(request, 'profiles/profile.html')
+
+@login_required
+def user_delete(request):
+    if

@@ -1,6 +1,10 @@
-from django.shortcuts import render, redirect
+from django.contrib.auth.models import User
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse
+# from django.views.generic import DetailView
+from .models import Profile
 from .forms import UserRegisterForm
 
 
@@ -17,6 +21,26 @@ def register(request):
     return render(request, 'profiles/register.html', {'form': form})
 
 
+
+def profile(request, pk):
+    own_user = request.user
+    other_user = User.objects.get(pk=pk)
+    return render(request, 'profiles/profile_detail.html', {'own_user':own_user, 'other_user':other_user})
+
+
 @login_required
-def profile(request):
-    return render(request, 'profiles/profile.html')
+def my_profile(request):
+    return profile(request, request.user.id)
+    
+    # return render(request, 'profiles/profile_detail.html', {'user':own_user})
+
+
+# class ProfileDetailView(DetailView):
+#     model = Profile
+# 
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         user = get_object_or_404(User, pk=self.kwargs.get('pk'))
+#         context['another_user'] = user
+#         return context
+

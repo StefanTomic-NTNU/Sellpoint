@@ -11,20 +11,21 @@
         </div>
       </div>
     <div class="form-group" style="margin-top:30px">
-        <button class="btn btn-outline-info">
-            <a class="nounderline" href="{% url 'user-ads' other_user.username %}">
+
+            <a class="btn btn-outline-info nounderline" href="{% url 'user-ads' other_user.username %}">
                 {% if own_user.id == other_user.id %}
                 Mine annonser 
                 {% else %}
                 {{other_user.username}}s annonser 
                 {% endif %}
             </a>            
-        </button>
+
     {% if own_user.id == other_user.id %}
-        <button class="btn btn-outline-info">
-            <a class="nounderline" href="{% url 'profile-confirm-delete' %}">Slett profil
+
+            <a class="btn btn-outline-danger nounderline" href="{% url 'profile-confirm-delete' %}">
+                Slett profil
             </a>
-        </button>
+
     {% else %}
     {% endif %}
     </div>

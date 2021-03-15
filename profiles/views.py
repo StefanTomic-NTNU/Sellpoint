@@ -1,10 +1,10 @@
+from django.contrib.auth import logout
 from django.contrib.auth.models import User
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.urls import reverse
-# from django.views.generic import DetailView
-from .models import Profile
+
+from sellpoint import settings
 from .forms import UserRegisterForm
 
 
@@ -21,7 +21,6 @@ def register(request):
     return render(request, 'profiles/register.html', {'form': form})
 
 
-
 def profile(request, pk):
     own_user = request.user
     other_user = User.objects.get(pk=pk)
@@ -31,16 +30,35 @@ def profile(request, pk):
 @login_required
 def my_profile(request):
     return profile(request, request.user.id)
-    
-    # return render(request, 'profiles/profile_detail.html', {'user':own_user})
 
 
-# class ProfileDetailView(DetailView):
-#     model = Profile
-# 
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         user = get_object_or_404(User, pk=self.kwargs.get('pk'))
-#         context['another_user'] = user
-#         return context
+@login_required
+def profile_confirm_delete(request):
+    return render(request, 'profiles/profile_confirm_delete.html')
 
+
+def profile_delete(request):
+    """
+    Deletes profile, which cascades to user.
+    No login_required annotation is needed because
+    the check is performed in the function. This
+    is to avoid the user being redirected to
+    /profiles/delete when logging in after
+    trying to access the url when logged out.
+    """
+    context = {}
+
+    if not request.user.is_authenticated:
+        return redirect(settings.LOGIN_URL)
+
+    try:
+        u = request.user
+        logout(request)
+        u.delete()
+        messages.success(request, f'Din bruker er nå slettet!')
+    except User.DoesNotExist:
+        context['msg'] = 'User does not exist.'
+    except Exception as e:
+        context['msg'] = e.message
+
+    return render(request, 'profiles/register.html', context=context)

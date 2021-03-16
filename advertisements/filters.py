@@ -8,9 +8,15 @@ from .models import Advertisement
 from .models import Category
 
 from .widgets import CustomRangeWidget
+from .functions import get_distance_from_lat_lon_in_km
 
 
-class AdvertisementFiler(df.FilterSet):
+class AdvertisementFilter(df.FilterSet):
+
+    def __init__(self, request, queryset, user):
+        super(AdvertisementFilter, self).__init__(request, queryset)
+        self.user = user
+
 
     q = CharFilter(label="Søk",field_name="search", method='my_custom_filter', widget=TextInput(
                             attrs={'class' :'form-control', 'placeholder':'Søk'}))
@@ -46,6 +52,18 @@ class AdvertisementFiler(df.FilterSet):
                             to_attrs={'placeholder': 'Pris til'},
                             attrs={'class': 'form-control'}))
 
+    distance = ChoiceFilter(label='distance', field_name="distance", choices=(
+        (0.2, 'Her (mindre enn 200m)'),
+        (1, 'Veldig nært (mindre enn 1km)'),
+        (3, 'Nært (mindre enn 3km)'),
+        (20, 'Kjøreavstand (< 20km)')
+    ),
+                            empty_label='Hvor langt fra deg?',
+                            method='filter_by_distance',
+                            widget=Select(
+                                attrs={'class': 'form-control'})
+                            )
+
     class Meta:
         model = Advertisement
         fields = ['q']
@@ -64,3 +82,13 @@ class AdvertisementFiler(df.FilterSet):
         if value == 'Dyrest øverst':
             expression = '-price'
         return queryset.order_by(expression)
+
+    def filter_by_distance(self, queryset, name, value):
+        latitude = self.user.profile.latitude
+        longitude = self.user.profile.longitude
+        ads_ids = []
+        for ad in queryset.all():
+            if get_distance_from_lat_lon_in_km(ad.latitude, ad.longitude, latitude, longitude) < float(value):
+                ads_ids.append(ad.id)
+        return Advertisement.objects.filter(id__in=ads_ids)
+

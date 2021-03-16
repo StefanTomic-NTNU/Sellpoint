@@ -16,14 +16,23 @@
     <div class="form-div row">
     <div class="row">
         <div class="col form-col">
-            <p>Sorter annonser etter kategori, price, publiseringstid og søkeord.</p>
+            <p>Sorter annonser etter avstand fra deg, kategori, pris, publiseringstid og søkeord.</p>
             <form method="get" class = "ads-form">
-                <div class="form-row">
-                {% for name in myFilter.form%}
-                <div class="col-md-4 mb-3 inl">
-                 {{name}}
-                </div>
+                <div class="form-row justify-content-center">
+                {% for name in myFilter.form %}
+
+                    {% if not name.name in "distance" %}
+                    <div class="col-md-4 mb-3 inl">
+                        {{name}}
+                    </div>
+                    {% endif %}
+
                 {% endfor %}
+                {% if logged_in_user.id %}
+                    <div class="col-md-4 mb-3 inl">
+                 {{myFilter.form.distance}}
+                </div>
+                    {% endif %}
                 </div>
                 <button class = "btn btn-primary form-control" type="submit">
                     Søk

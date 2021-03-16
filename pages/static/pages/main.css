@@ -178,17 +178,20 @@ a.article-title:hover {
 }
 
 .form-div {
-    background: rgb(52, 182, 255, 0.35);
+    background: rgb(52, 182, 255, 0.2);
     padding: 10px 30px;
+    display: flex;
+    align-items: center;
 }
 
 .form-col {
     padding: 2%;
     text-align: center;
+
 }
 
 .form-col p {
-    color: white;
+    color: #0069D9;
     font-size: 16px;
     font-weight: medium;
     margin-bottom: 25px;

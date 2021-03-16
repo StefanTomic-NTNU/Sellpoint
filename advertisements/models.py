@@ -27,4 +27,4 @@ class Advertisement(models.Model):
         return reverse('ad-detail', kwargs={'pk': self.pk})
 
     def __str__(self):
-        return self.title +  ": NOK" + str(self.price)
+        return self.title + ": NOK" + str(self.price)

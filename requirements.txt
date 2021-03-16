@@ -6,9 +6,11 @@ coverage==5.4
 Django==3.1.6
 django-cleanup==5.1.0
 django-crispy-forms==1.11.0
+django-filter==2.4.0
 live-server==0.9.9
 pathtools==0.1.2
 Pillow==8.1.0
+pylint==2.7.2
 pytz==2021.1
 PyYAML==5.4.1
 sqlparse==0.4.1

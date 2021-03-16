@@ -131,8 +131,7 @@ class AdvertisementUpdateView(
         advertisement = self.get_object()
         if self.request.user == advertisement.author:
             return True
-        else:
-            return False
+        return False
 
     def get_success_url(self):
         # find your next url here
@@ -156,6 +155,5 @@ class AdvertisementDeleteView(
         advertisement = self.get_object()
         if self.request.user == advertisement.author:
             return True
-        else:
-            return False
+        return False
 

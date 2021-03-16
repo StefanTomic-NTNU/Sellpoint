@@ -2,8 +2,6 @@ from http import HTTPStatus
 from django.test import TestCase
 from django.urls import reverse
 
-from advertisements.models import Advertisement
-
 
 class BaseTest(TestCase):
     def setUp(self):
@@ -47,5 +45,3 @@ class TestViews(BaseTest):
         response = self.client.post(self.ad_create_url, self.ad, format='text/html')
         self.assertEqual(response.status_code, HTTPStatus.FOUND)
         self.assertTrue(response.url.__contains__('login'))
-
-

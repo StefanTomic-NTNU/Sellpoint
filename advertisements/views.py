@@ -22,7 +22,7 @@ def advertisement_list(request):
 
 
 def category_list(request, category):
-    category_id = Category.objects.get(name = category)
+    category_id = Category.objects.get(name=category)
     advertisements = Advertisement.objects.filter(category=category_id)
 
     myFilter = AdvertisementFiler(request.GET, queryset=advertisements)
@@ -60,6 +60,7 @@ class UserAdvertisementListView(ListView):
         user = get_object_or_404(User, username=self.kwargs.get('username'))
         context['username'] = user.username
         return context
+
 
 class CategoryAdvertisementListView(ListView):
     model = Advertisement

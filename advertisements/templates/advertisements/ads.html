@@ -13,11 +13,19 @@
 
     {% if username %}
     {% else %}
+    <div class="form-div row">
     <div class="row">
-        <div class="col" style="padding: 3%">
-            <form method="get">
-                {{ myFilter.form }}
-                <button class = "btn btn-primary" type="submit">
+        <div class="col form-col">
+            <p>Sorter annonser etter kategori, price, publiseringstid og søkeord.</p>
+            <form method="get" class = "ads-form">
+                <div class="form-row">
+                {% for name in myFilter.form%}
+                <div class="col-md-4 mb-3 inl">
+                 {{name}}
+                </div>
+                {% endfor %}
+                </div>
+                <button class = "btn btn-primary form-control" type="submit">
                     Søk
                 </button>
             </form>
@@ -25,7 +33,7 @@
     </div>
     {% endif %}
 </div>
-
+</div>
 <div class="d-flex flex-wrap align-content-stretch" style="padding-top: 5%; margin: auto; width: 100%; justify-content: space-around;">
     {% for advertisement in advertisements %}
     <div style="margin:50px">
@@ -35,9 +43,9 @@
               background-color: white;
               box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
             {% if username %}
-            <a class="nounderline" href="{% url 'user-ad-detail' username advertisement.id %}">
+            <a class="nounderline" href="{% url 'user-ad-detail' username advertisement.id %}"/>
             {% elif category_name %}
-                <a class="nounderline" href="{% url 'category-ad-detail' category_name advertisement.id %}">
+                <a class="nounderline" href="{% url 'category-ad-detail' category_name advertisement.id %}"/>
             {% else %}
                     <a class="nounderline" href="{% url 'ad-detail' advertisement.id %}">
             {% endif %}

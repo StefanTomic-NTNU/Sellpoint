@@ -1,30 +1,50 @@
 from django.db.models import Q
 import django_filters as df
-from django_filters import DateRangeFilter
-from django_filters import RangeFilter
-from django_filters.widgets import RangeWidget
+from django.forms import TextInput, Select
+from django_filters import DateRangeFilter, CharFilter
+from django_filters import ModelChoiceFilter, RangeFilter, ChoiceFilter
 
 from .models import Advertisement
-# from .models import Category
+from .models import Category
+
+from .widgets import CustomRangeWidget
 
 
 class AdvertisementFiler(df.FilterSet):
 
-    q = df.CharFilter(label="Søk", method='my_custom_filter')
-    price = RangeFilter(label="Pris", field_name="price",
-                        widget=RangeWidget(
-                            attrs={'placeholder': '', 'style':"width: 10%; margin: 1%"}))
+    q = CharFilter(label="Søk",field_name="search", method='my_custom_filter', widget=TextInput(
+                            attrs={'class' :'form-control', 'placeholder':'Søk'}))
+    category = ModelChoiceFilter(label="Kategori",
+                                 field_name="category", queryset=Category.objects.all(),
+                                 empty_label='Velg kategori',
+                                 widget=Select(
+                                     attrs={'class': 'form-control'})
+                                 )
 
-    # category = ModelChoiceFilter(label="Kategori",
-    #                              field_name="category", queryset=Category.objects.all())
-    published = DateRangeFilter(label='Publisert')
-    ordering = df.ChoiceFilter(label='Rekkefølge', choices=(
+    published = DateRangeFilter(label='Publisert',
+                                field_name="published",
+                                empty_label='Velg tidsinterval',
+                                widget=Select(
+                                    attrs={'class': 'form-control'})
+                                )
+
+    ordering = ChoiceFilter(label='Rekkefølge', field_name="ordering", choices=(
         ('A -> Å', 'A -> Å'),
         ('Å -> A', 'Å -> A'),
         ('Dyrest øverst', 'Dyrest øverst'),
         ('Billigst øverst', 'Billigst øverst')
         ),
-                               method='filter_by_order')
+                            empty_label='Velg rekkefølge',
+                               method='filter_by_order',
+                            widget=Select(
+                                attrs={'class': 'form-control'})
+                            )
+
+    price = RangeFilter(label="Pris", field_name="price",
+                        widget=CustomRangeWidget(
+                            from_attrs={'placeholder': 'Pris fra'},
+                            to_attrs={'placeholder': 'Pris til'},
+                            attrs={'class': 'form-control'}))
 
     class Meta:
         model = Advertisement

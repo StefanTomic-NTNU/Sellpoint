@@ -4,17 +4,36 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Advertisement, Category
+from .filters import AdvertisementFiler
 
 
 def advertisement_list(request):
+
+    advertisements = Advertisement.objects.all()
+
+    myFilter = AdvertisementFiler(request.GET, queryset=advertisements)
+    advertisements = myFilter.qs
+
     context = {
-        'advertisements': Advertisement.objects.all()
+        'advertisements': advertisements,
+        'myFilter': myFilter
     }
     return render(request, 'advertisements/ads.html', context)
 
-#
-# def ad_detail(request):
-#     return render(request, 'advertisements/advertisement_detail.html')
+
+def category_list(request, category):
+    category_id = Category.objects.get(name = category)
+    advertisements = Advertisement.objects.filter(category=category_id)
+
+    myFilter = AdvertisementFiler(request.GET, queryset=advertisements)
+    advertisements = myFilter.qs
+
+    context = {
+        'advertisements': advertisements,
+        'myFilter': myFilter,
+        'category': category
+    }
+    return render(request, 'advertisements/ads.html', context)
 
 
 class AdvertisementListView(ListView):

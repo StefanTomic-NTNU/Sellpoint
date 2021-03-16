@@ -7,3 +7,11 @@ local_settings.py
 *.sqlite3
 venv/
 htmlcov/
+htmlcov/*
+*_py.html
+index.html
+jquery*
+keybd*
+coverage_html.js
+status.json
+.coverage

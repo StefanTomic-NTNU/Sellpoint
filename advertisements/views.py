@@ -121,7 +121,7 @@ class AdvertisementUpdateView(
     UpdateView):
 
     model = Advertisement
-    fields = ['title', 'description', 'price', 'category', 'image_main']
+    fields = ['title', 'description', 'price', 'category', 'image_main', 'latitude', 'longitude']
 
     def form_valid(self, form):
         form.instance.author = self.request.user

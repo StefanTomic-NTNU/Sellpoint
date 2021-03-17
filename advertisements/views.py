@@ -4,28 +4,29 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Advertisement, Category
-from .filters import AdvertisementFiler
+from .filters import AdvertisementFilter
 
 
 def advertisement_list(request):
 
     advertisements = Advertisement.objects.all()
 
-    myFilter = AdvertisementFiler(request.GET, queryset=advertisements)
+    myFilter = AdvertisementFilter(request.GET, queryset=advertisements, user=request.user)
     advertisements = myFilter.qs
 
     context = {
         'advertisements': advertisements,
-        'myFilter': myFilter
+        'myFilter': myFilter,
+        'logged_in_user': request.user
     }
     return render(request, 'advertisements/ads.html', context)
 
 
 def category_list(request, category):
-    category_id = Category.objects.get(name = category)
+    category_id = Category.objects.get(name=category)
     advertisements = Advertisement.objects.filter(category=category_id)
 
-    myFilter = AdvertisementFiler(request.GET, queryset=advertisements)
+    myFilter = AdvertisementFilter(request.GET, queryset=advertisements, user=None)
     advertisements = myFilter.qs
 
     context = {
@@ -60,6 +61,7 @@ class UserAdvertisementListView(ListView):
         user = get_object_or_404(User, username=self.kwargs.get('username'))
         context['username'] = user.username
         return context
+
 
 class CategoryAdvertisementListView(ListView):
     model = Advertisement
@@ -107,8 +109,7 @@ class CategoryAdvertisementDetailView(DetailView):
 
 class AdvertisementCreateView(LoginRequiredMixin, CreateView):
     model = Advertisement
-    fields = ['title', 'description', 'price', 'category', 'image_main']
-
+    fields = ['title', 'description', 'price', 'category', 'latitude', 'longitude', 'image_main']
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
@@ -130,8 +131,7 @@ class AdvertisementUpdateView(
         advertisement = self.get_object()
         if self.request.user == advertisement.author:
             return True
-        else:
-            return False
+        return False
 
     def get_success_url(self):
         # find your next url here
@@ -155,6 +155,5 @@ class AdvertisementDeleteView(
         advertisement = self.get_object()
         if self.request.user == advertisement.author:
             return True
-        else:
-            return False
+        return False
 

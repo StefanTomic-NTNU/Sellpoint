@@ -153,3 +153,46 @@ a.article-title:hover {
   height: 25px;
   vertical-align: middle;
 }
+
+.ads-form {
+    text-align: center;
+}
+
+.ads-form label {
+    border: 0 !important;
+	clip: rect(1px, 1px, 1px, 1px) !important;
+	-webkit-clip-path: inset(50%) !important;
+		clip-path: inset(50%) !important;
+	height: 1px !important;
+	margin: 0px !important;
+	overflow: hidden !important;
+	padding: 0 !important;
+	position: absolute !important;
+	width: 1px !important;
+	white-space: nowrap !important;
+}
+
+
+.inl {
+    display: inline-flex;
+}
+
+.form-div {
+    background: rgb(52, 182, 255, 0.2);
+    padding: 10px 30px;
+    display: flex;
+    align-items: center;
+}
+
+.form-col {
+    padding: 2%;
+    text-align: center;
+
+}
+
+.form-col p {
+    color: #0069D9;
+    font-size: 16px;
+    font-weight: medium;
+    margin-bottom: 25px;
+}

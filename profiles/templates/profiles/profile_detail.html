@@ -21,10 +21,13 @@
             </a>            
 
     {% if own_user.id == other_user.id %}
-
+            <a class="btn btn-outline-info nounderline" href="{% url 'profile-update' %}">
+                Oppdater profil
+            </a>
             <a class="btn btn-outline-danger nounderline" href="{% url 'profile-confirm-delete' %}">
                 Slett profil
             </a>
+            
 
     {% else %}
     {% endif %}

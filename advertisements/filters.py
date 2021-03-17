@@ -1,30 +1,68 @@
 from django.db.models import Q
 import django_filters as df
-from django_filters import DateRangeFilter
-from django_filters import RangeFilter
-from django_filters.widgets import RangeWidget
+from django.forms import TextInput, Select
+from django_filters import DateRangeFilter, CharFilter
+from django_filters import ModelChoiceFilter, RangeFilter, ChoiceFilter
 
 from .models import Advertisement
-# from .models import Category
+from .models import Category
+
+from .widgets import CustomRangeWidget
+from .functions import get_distance_from_lat_lon_in_km
 
 
-class AdvertisementFiler(df.FilterSet):
+class AdvertisementFilter(df.FilterSet):
 
-    q = df.CharFilter(label="Søk", method='my_custom_filter')
-    price = RangeFilter(label="Pris", field_name="price",
-                        widget=RangeWidget(
-                            attrs={'placeholder': '', 'style':"width: 10%; margin: 1%"}))
+    def __init__(self, request, queryset, user):
+        super(AdvertisementFilter, self).__init__(request, queryset)
+        self.user = user
 
-    # category = ModelChoiceFilter(label="Kategori",
-    #                              field_name="category", queryset=Category.objects.all())
-    published = DateRangeFilter(label='Publisert')
-    ordering = df.ChoiceFilter(label='Rekkefølge', choices=(
+
+    q = CharFilter(label="Søk",field_name="search", method='my_custom_filter', widget=TextInput(
+                            attrs={'class' :'form-control', 'placeholder':'Søk'}))
+    category = ModelChoiceFilter(label="Kategori",
+                                 field_name="category", queryset=Category.objects.all(),
+                                 empty_label='Velg kategori',
+                                 widget=Select(
+                                     attrs={'class': 'form-control'})
+                                 )
+
+    published = DateRangeFilter(label='Publisert',
+                                field_name="published",
+                                empty_label='Velg tidsinterval',
+                                widget=Select(
+                                    attrs={'class': 'form-control'})
+                                )
+
+    ordering = ChoiceFilter(label='Rekkefølge', field_name="ordering", choices=(
         ('A -> Å', 'A -> Å'),
         ('Å -> A', 'Å -> A'),
         ('Dyrest øverst', 'Dyrest øverst'),
         ('Billigst øverst', 'Billigst øverst')
         ),
-                               method='filter_by_order')
+                            empty_label='Velg rekkefølge',
+                               method='filter_by_order',
+                            widget=Select(
+                                attrs={'class': 'form-control'})
+                            )
+
+    price = RangeFilter(label="Pris", field_name="price",
+                        widget=CustomRangeWidget(
+                            from_attrs={'placeholder': 'Pris fra'},
+                            to_attrs={'placeholder': 'Pris til'},
+                            attrs={'class': 'form-control'}))
+
+    distance = ChoiceFilter(label='distance', field_name="distance", choices=(
+        (0.2, 'Her (mindre enn 200m)'),
+        (1, 'Veldig nært (mindre enn 1km)'),
+        (3, 'Nært (mindre enn 3km)'),
+        (20, 'Kjøreavstand (< 20km)')
+    ),
+                            empty_label='Hvor langt fra deg?',
+                            method='filter_by_distance',
+                            widget=Select(
+                                attrs={'class': 'form-control'})
+                            )
 
     class Meta:
         model = Advertisement
@@ -44,3 +82,13 @@ class AdvertisementFiler(df.FilterSet):
         if value == 'Dyrest øverst':
             expression = '-price'
         return queryset.order_by(expression)
+
+    def filter_by_distance(self, queryset, name, value):
+        latitude = self.user.profile.latitude
+        longitude = self.user.profile.longitude
+        ads_ids = []
+        for ad in queryset.all():
+            if get_distance_from_lat_lon_in_km(ad.latitude, ad.longitude, latitude, longitude) < float(value):
+                ads_ids.append(ad.id)
+        return Advertisement.objects.filter(id__in=ads_ids)
+

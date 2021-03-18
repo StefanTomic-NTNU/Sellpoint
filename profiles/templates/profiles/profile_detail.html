@@ -12,6 +12,7 @@
       </div>
     <div class="form-group" style="margin-top:30px">
 
+
             <a class="btn btn-outline-info nounderline" href="{% url 'user-ads' other_user.username %}">
                 {% if own_user.id == other_user.id %}
                 Mine annonser 
@@ -20,11 +21,26 @@
                 {% endif %}
             </a>
 
-            <a class="btn btn-outline-info nounderline">
-                {% if own_user.id != other_user.id %}
+        <a class="btn btn-outline-info nounderline">
+                {% if own_user.id == other_user.id %}
+                Se feedbacks
+                {% else %}
                 Kommenter
                 {% endif %}
             </a>
+
+            {% if own_user.id == other_user.id %}
+            <a class="btn btn-outline-info nounderline" href="{% url 'profile-update' %}">
+                Oppdater profil
+            </a>
+
+
+
+            <a class="btn btn-outline-danger nounderline" href="{% url 'profile-confirm-delete' %}">
+                Slett profil
+            </a>
+
+
 
         <!-----Knappen til kommentar----->
 
@@ -36,13 +52,7 @@
             </br>
         </div>
 
-    {% if own_user.id == other_user.id %}
-            <a class="btn btn-outline-info nounderline" href="{% url 'profile-update' %}">
-                Oppdater profil
-            </a>
-            <a class="btn btn-outline-danger nounderline" href="{% url 'profile-confirm-delete' %}">
-                Slett profil
-            </a>
+
             
 
     {% else %}

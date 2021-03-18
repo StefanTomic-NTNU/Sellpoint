@@ -2,12 +2,12 @@
 {% block content %}
 
 <div style="margin-left: 15%; margin-right: 15%">
-    <h1 class="mb-3" style="padding: auto; padding-bottom: 30px; font-size: 80; text-align:center">
+    <h1 class="mb-3 ads-h1" style="padding-bottom: 30px; font-size: 40; text-align:center; color: #003366;">
         {% if username %}
         Annonsene til {{ username }}
-        {% elif category %}
-        {{ category }}
-        {% else %}Alle annonser
+        {% elif chocen_category_name %}
+        {{ chocen_category_name }}
+        {% else %}Søk i annonser
         {% endif %}
     </h1>
 
@@ -19,7 +19,7 @@
             <p>Sorter annonser etter avstand fra deg, kategori, pris, publiseringstid og søkeord.</p>
             <form method="get" class = "ads-form">
                 <div class="form-row justify-content-center">
-                {% for name in myFilter.form %}
+                {% for name in ad_filter.form %}
 
                     {% if not name.name in "distance" %}
                     <div class="col-md-4 mb-3 inl">
@@ -30,7 +30,7 @@
                 {% endfor %}
                 {% if logged_in_user.id %}
                     <div class="col-md-4 mb-3 inl">
-                 {{myFilter.form.distance}}
+                 {{ad_filter.form.distance}}
                 </div>
                     {% endif %}
                 </div>

@@ -2,19 +2,12 @@
 {% block content %}
 <div class = "container">
     <div class = "advertisement-detail">
+
         {% if username %}
         <a href="{% url 'user-ads' username %}">
             <button type="button" class="btn btn-outline-secondary">Tilbake til {{ username }}s annonser</button>
         </a>
-            {% elif category_name %}
-        <a href="{% url 'category-ads' category_name %}">
-            <button type="button" class="btn btn-outline-secondary">Tilbake til {{ category_name }}</button>
-        </a>
-            {% else %}
-        <a href="{% url 'ads' %}">
-            <button type="button" class="btn btn-outline-secondary">Tilbake til alle annonser</button>
-        </a>
-            {% endif %}
+        {% endif %}
 
         <div class="float-right" style="padding-left:20px; padding-bottom:90%; padding-top:10%;">
             <img class ="rounded img-fluid" src="{{ object.image_main.url }}"

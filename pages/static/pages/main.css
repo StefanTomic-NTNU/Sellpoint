@@ -196,3 +196,9 @@ a.article-title:hover {
     font-weight: medium;
     margin-bottom: 25px;
 }
+
+.ads-h1 {
+   padding-bottom: 30px;
+    font-size: 40;
+    text-align:center;
+}

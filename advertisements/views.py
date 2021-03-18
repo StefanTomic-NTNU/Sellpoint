@@ -11,28 +11,19 @@ def advertisement_list(request):
 
     advertisements = Advertisement.objects.all()
 
-    myFilter = AdvertisementFilter(request.GET, queryset=advertisements, user=request.user)
-    advertisements = myFilter.qs
+    ad_filter = AdvertisementFilter(request.GET, queryset=advertisements, user=request.user)
+    advertisements = ad_filter.qs
+
+    chocen_category_id = request.GET.get('category', '')
+    chocen_category_name = None
+    if chocen_category_id != '':
+        chocen_category_name = Category.objects.get(id=chocen_category_id).name
 
     context = {
         'advertisements': advertisements,
-        'myFilter': myFilter,
-        'logged_in_user': request.user
-    }
-    return render(request, 'advertisements/ads.html', context)
-
-
-def category_list(request, category):
-    category_id = Category.objects.get(name=category)
-    advertisements = Advertisement.objects.filter(category=category_id)
-
-    myFilter = AdvertisementFilter(request.GET, queryset=advertisements, user=None)
-    advertisements = myFilter.qs
-
-    context = {
-        'advertisements': advertisements,
-        'myFilter': myFilter,
-        'category': category
+        'ad_filter': ad_filter,
+        'logged_in_user': request.user,
+        'chocen_category_name': chocen_category_name
     }
     return render(request, 'advertisements/ads.html', context)
 
@@ -41,7 +32,7 @@ class AdvertisementListView(ListView):
     model = Advertisement
     template_name = 'advertisements/ads.html'
     context_object_name = 'advertisements'
-    ordering = ['-published']    # Forteller at annonsene skal være sortert nyest-eldst publisert'
+    ordering = ['-published']
     paginate_by = 8     # Nyttig for når vi skal implementere pagination (flere sider med ads)'
 
 
@@ -84,6 +75,14 @@ class CategoryAdvertisementListView(ListView):
 class AdvertisementDetailView(DetailView):
     model = Advertisement
 
+    # Code that does not work
+    # def get_context_data(self, **kwargs):
+    #     # Call the base implementation first to get a context
+    #     context = super().get_context_data(**kwargs)
+    #     uri = self.request.GET
+    #     print(uri)
+    #     return context
+
 
 class UserAdvertisementDetailView(DetailView):
     model = Advertisement
@@ -121,7 +120,7 @@ class AdvertisementUpdateView(
     UpdateView):
 
     model = Advertisement
-    fields = ['title', 'description', 'price', 'category', 'image_main']
+    fields = ['title', 'description', 'price', 'category', 'image_main', 'latitude', 'longitude']
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -138,9 +137,9 @@ class AdvertisementUpdateView(
         next_url = self.request.POST.get('next', None)  # here method should be GET or POST.
         advertisement = self.get_object()
         if next_url:
-            return advertisement.category + '/' + advertisement.id  # you can include some query strings as well
-        else:
-            return reverse('ads')  # what url you wish to return
+            return advertisement.category + \
+                   '/' + advertisement.id  # you can include some query strings as well
+        return reverse('ads')  # what url you wish to return
 
 
 class AdvertisementDeleteView(
@@ -156,4 +155,3 @@ class AdvertisementDeleteView(
         if self.request.user == advertisement.author:
             return True
         return False
-

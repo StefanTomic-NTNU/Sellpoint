@@ -24,7 +24,7 @@ def register(request):
 def profile(request, pk):
     own_user = request.user
     other_user = User.objects.get(pk=pk)
-    return render(request, 'profiles/profile_detail.html', {'own_user':own_user, 'other_user':other_user})
+    return render(request, 'profiles/profile_detail.html', {'own_user': own_user, 'other_user': other_user})
 
 
 @login_required
@@ -62,6 +62,7 @@ def profile_delete(request):
         context['msg'] = e.message
 
     return render(request, 'profiles/register.html', context=context)
+
 
 @login_required
 def profile_update(request):

@@ -18,7 +18,23 @@
                 {% else %}
                 {{other_user.username}}s annonser 
                 {% endif %}
-            </a>            
+            </a>
+
+            <a class="btn btn-outline-info nounderline">
+                {% if own_user.id != other_user.id %}
+                Kommenter
+                {% endif %}
+            </a>
+
+        <!-----Knappen til kommentar----->
+
+        <div>
+            <br>
+            <h4>
+            Feedback...
+            </h4>
+            </br>
+        </div>
 
     {% if own_user.id == other_user.id %}
             <a class="btn btn-outline-info nounderline" href="{% url 'profile-update' %}">

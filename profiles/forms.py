@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, UsernameField, AuthenticationForm
 from .models import Profile
 
+
 class UserRegisterForm(UserCreationForm):
 
     def __init__(self, *args, **kwargs):
@@ -47,8 +48,8 @@ class UserAuthenticationForm(AuthenticationForm):
         self.error_messages['invalid_login'] = \
             'Vennligst skriv inn riktig ' \
             'brukernavn og passord. ' \
-             'Merk at begge feltene kan ' \
-             'være store og små bokstaver.'
+            'Merk at begge feltene kan ' \
+            'være store og små bokstaver.'
         super().__init__(*args, **kwargs)
 
     username = UsernameField(
@@ -62,15 +63,23 @@ class UserAuthenticationForm(AuthenticationForm):
         widget=forms.PasswordInput,
     )
 
+
 class UserUpdateForm(forms.ModelForm):
-    email=forms.EmailField()
+    email = forms.EmailField()
 
     class Meta:
         model = User
-        fields = ['username','email']
+        fields = ['username', 'email']
+
 
 class ProfileUpdateForm(forms.ModelForm):
-
     class Meta:
         model = Profile
         fields = ['image']
+
+
+
+#class AddCommentForm(forms.ModelForm):
+ #   class Meta:
+  #      model = Profile
+   #     fields = ['comment', 'rating']

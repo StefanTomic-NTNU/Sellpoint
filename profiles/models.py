@@ -1,5 +1,9 @@
+
+
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 
 class Profile(models.Model):
@@ -10,3 +14,13 @@ class Profile(models.Model):
 
     def __str__(self):
         return f'{self.user.username}'
+
+
+class Feedback(models.Model):
+    comment = models.TextField(max_length=500)
+    rating = models.PositiveSmallIntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(5)])
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    published = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return '%s - %s' % (self.comment, self.author)

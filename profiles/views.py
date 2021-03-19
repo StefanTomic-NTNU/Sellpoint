@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from .models import Feedback
 
 from sellpoint import settings
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
@@ -84,3 +85,12 @@ def profile_update(request):
         'p_form': p_form
     }
     return render(request, 'profiles/profile_update.html', context)
+
+
+def add_feedback(request, pk):
+    model = Feedback
+    template_name = 'feedback.html'
+    fields = '__all__'
+    own_user = request.user
+    other_user = User.objects.get(pk=pk)
+    return render(request, 'profiles/feedback.html', {'own_user': own_user, 'other_user': other_user})

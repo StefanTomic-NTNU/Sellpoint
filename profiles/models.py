@@ -1,5 +1,4 @@
 
-
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.contrib.auth.models import User
@@ -22,5 +21,6 @@ class Feedback(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     published = models.DateTimeField(default=timezone.now)
 
+    # Dette er hva som vises i admin-panelet
     def __str__(self):
-        return '%s - %s' % (self.comment, self.author)
+        return '%s - %s' % (self.author, self.rating)

@@ -21,8 +21,8 @@
                 {% endif %}
             </a>
 
-        <a class="btn btn-outline-info nounderline" ">
-                {% if own_user.id == other_user.id %}
+        <a class="btn btn-outline-info nounderline" href="feedback/">
+               {% if own_user.id == other_user.id %}
                 Se feedbacks
                 {% else %}
                 Kommenter
@@ -34,13 +34,9 @@
                 Oppdater profil
             </a>
 
-
-
             <a class="btn btn-outline-danger nounderline" href="{% url 'profile-confirm-delete' %}">
                 Slett profil
             </a>
-
-
 
         <!-----Knappen til kommentar----->
 

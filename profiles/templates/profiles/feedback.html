@@ -1,10 +1,13 @@
 {% extends "pages/base.html" %}
 {% block content %}
-
+<div>
 <h1>
     Her er alle kommentarene til {{other_user.username}}
 </h1>
-
-<a>Legg igjen en kommentar</a>
+<br/>
+            <a class="btn btn-outline-info nounderline">
+                Legg til
+            </a>
+</div>
 
 {% endblock content %}

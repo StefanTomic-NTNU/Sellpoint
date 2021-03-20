@@ -8,5 +8,5 @@ urlpatterns = [
     path('confirm_delete', profile_confirm_delete, name='profile-confirm-delete'),
     path('delete', profile_delete, name='profile-delete'),
     path('update', profile_update, name='profile-update'),
-    path('<int:pk>/feedback/', add_feedback, name='add_feedback')
+    path('<int:pk>/feedback/', add_feedback, name='feedback')
 ]

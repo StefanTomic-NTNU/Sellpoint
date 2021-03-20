@@ -4,9 +4,10 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import Feedback
+from django.http import HttpResponseRedirect
 
 from sellpoint import settings
-from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
+from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, AddCommentForm
 
 
 def register(request):
@@ -94,3 +95,12 @@ def add_feedback(request, pk):
     own_user = request.user
     other_user = User.objects.get(pk=pk)
     return render(request, 'profiles/feedback.html', {'own_user': own_user, 'other_user': other_user})
+
+def create_comment(request):
+    if request.method == 'POST':
+        form = AddCommentForm(request.POST)
+        if form.is_valid():
+            return HttpResponseRedirect('/feedback/')
+        else:
+            form = AddCommentForm()
+        return render(request, 'feedback.html', {'form': form})

@@ -92,10 +92,11 @@ def profile_update(request):
 class FeedbackListView(ListView):
     model = Feedback
     template_name = 'profiles/feedback_list.html'
+    ordering = ['published']
 
 
 class FeedbackCreateView(CreateView):
     model = Feedback
     form_class = FeedbackForm
     template_name = 'profiles/feedback_create.html'
-    # fields = '__all__'
+   # fields = '__all__'

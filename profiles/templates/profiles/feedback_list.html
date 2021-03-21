@@ -2,7 +2,7 @@
 {% block content %}
 
 <div>
-    {% if own_user.username == other_user.username %}
+    {% if user.id == other_user.id %}
 <h1>
     Her er alle kommentarene dine!
 
@@ -22,7 +22,6 @@
 
 {% endfor %}
     <a class="btn btn-outline-info nounderline" href="create_feedback/">Legg til</a>
-
 </div>
 
 {% endblock content %}

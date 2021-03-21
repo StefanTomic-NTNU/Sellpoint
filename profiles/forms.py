@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth import password_validation
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, UsernameField, AuthenticationForm
-from .models import Profile
+from .models import Profile, Feedback
 
 
 class UserRegisterForm(UserCreationForm):
@@ -78,3 +78,13 @@ class ProfileUpdateForm(forms.ModelForm):
         fields = ['image']
 
 
+class FeedbackForm(forms.ModelForm):
+    class Meta:
+        model = Feedback
+        widgets = {
+            'comment': forms.Textarea(attrs={'class': 'form-control'}),
+            'rating': forms.TextInput(attrs={'class': 'form-control'}),
+            'published': forms.DateInput(attrs={'class': 'form-control'}),
+            'author': forms.Select(attrs={'class': 'form-control'})
+        }
+        fields = ['author', 'comment', 'rating', 'published']

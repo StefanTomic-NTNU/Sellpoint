@@ -8,7 +8,7 @@ from django.http import HttpResponseRedirect
 from django.views.generic import ListView, CreateView
 
 from sellpoint import settings
-from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
+from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, FeedbackForm
 
 
 def register(request):
@@ -96,5 +96,6 @@ class FeedbackListView(ListView):
 
 class FeedbackCreateView(CreateView):
     model = Feedback
+    form_class = FeedbackForm
     template_name = 'profiles/feedback_create.html'
-    fields = '__all__'
+    # fields = '__all__'

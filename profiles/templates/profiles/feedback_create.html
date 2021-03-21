@@ -1,10 +1,16 @@
 {% extends "pages/base.html" %}
 {% block content %}
-
-<form method="POST">
+<div>
+<form method="POST" class="form-group">
     {% csrf_token %}
     {{ form.as_p }}
-    <a class ="btn btn-outline-info nounderline" href="/profile/{{ user.id }}/feedback/">Post</a>
+    <!-- Her skal det være other_user.id i stedet for user.id, men other_user.id funker ikke atm -->
+    <!-- <a class ="btn btn-outline-info nounderline" href="/profile/{{ user.id }}/feedback/">Post</a> -->
+            <Button class ="btn btn-outline-info nounderline" href="/profile/{{ user.id }}/feedback/">Post</Button>
+    <!-- {% url 'feeda -->
 </form>
+    <br/>
+<div>
+
 
 {% endblock content %}

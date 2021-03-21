@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.urls import reverse
 
 
 class Profile(models.Model):
@@ -23,3 +24,6 @@ class Feedback(models.Model):
     # Dette er hva som vises i admin-panelet
     def __str__(self):
         return '%s - %s' % (self.author, self.rating)
+
+    def get_absolute_url(self):
+        return reverse('feedback', args=(str(self.id)))

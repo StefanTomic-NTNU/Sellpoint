@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import Feedback
 from django.http import HttpResponseRedirect
-from django.views.generic import ListView
+from django.views.generic import ListView, CreateView
 
 from sellpoint import settings
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
@@ -93,3 +93,8 @@ class FeedbackListView(ListView):
     model = Feedback
     template_name = 'profiles/feedback_list.html'
 
+
+class FeedbackCreateView(CreateView):
+    model = Feedback
+    template_name = 'profiles/feedback_create.html'
+    fields = '__all__'

@@ -1,29 +1,27 @@
 {% extends "pages/base.html" %}
 {% block content %}
 
-
-
 <div>
-
-    {% if own_user.id == other_user.id %}
+    {% if own_user.username == other_user.username %}
 <h1>
     Her er alle kommentarene dine!
-    </h1>
+
+</h1>
+
     {% else %}
     <h1>
     Her er alle kommentarene til {{other_user.username}} !
         </h1>
+
     {% endif %}
 <br/>
-
-    </br>
-
 {% for feedback in object_list %}
  {{ feedback.comment }} - {{ feedback.rating }}
      <br/>
     <small>Skrevet av <a>{{ feedback.author }} </a> | {{ feedback.published }} </small> <br/> <hr>
 
 {% endfor %}
+    <a class="btn btn-outline-info nounderline" href="create_feedback/">Legg til</a>
 
 </div>
 

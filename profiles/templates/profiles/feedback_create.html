@@ -1,0 +1,10 @@
+{% extends "pages/base.html" %}
+{% block content %}
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <a class ="btn btn-outline-info nounderline" href="/profile/{{ user.id }}/feedback/">Post</a>
+</form>
+
+{% endblock content %}

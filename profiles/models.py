@@ -15,9 +15,9 @@ class Profile(models.Model):
 
 
 class Feedback(models.Model):
-    comment = models.TextField(max_length=500)
-    rating = models.PositiveSmallIntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(5)])
     author = models.ForeignKey(User, on_delete=models.CASCADE)
+    rating = models.PositiveSmallIntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(5)])
+    comment = models.TextField(max_length=500)
     published = models.DateTimeField(default=timezone.now)
 
     # Dette er hva som vises i admin-panelet

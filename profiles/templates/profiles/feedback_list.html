@@ -15,13 +15,7 @@
         </h1>
     {% endif %}
 <br/>
-    <form action=" " method="post">
-    <label for="your_name">Kommentar: </label>
-<input id="comment" type="text" name="comment" maxlength="400" required>
-    {% csrf_token %}
-    {{ form }}
-    <input type="submit" value="Submit">
-    </form>
+
     </br>
 
 {% for feedback in object_list %}

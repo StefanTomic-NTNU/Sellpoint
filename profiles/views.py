@@ -5,9 +5,10 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import Feedback
 from django.http import HttpResponseRedirect
+from django.views.generic import ListView
 
 from sellpoint import settings
-from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, AddCommentForm
+from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 
 
 def register(request):
@@ -88,19 +89,7 @@ def profile_update(request):
     return render(request, 'profiles/profile_update.html', context)
 
 
-def add_feedback(request, pk):
+class FeedbackListView(ListView):
     model = Feedback
-    template_name = 'feedback.html'
-    fields = '__all__'
-    own_user = request.user
-    other_user = User.objects.get(pk=pk)
-    return render(request, 'profiles/feedback.html', {'own_user': own_user, 'other_user': other_user})
+    template_name = 'profiles/feedback_list.html'
 
-def create_comment(request):
-    if request.method == 'POST':
-        form = AddCommentForm(request.POST)
-        if form.is_valid():
-            return HttpResponseRedirect('/feedback/')
-        else:
-            form = AddCommentForm()
-        return render(request, 'feedback.html', {'form': form})

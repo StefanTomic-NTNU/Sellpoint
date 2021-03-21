@@ -78,6 +78,3 @@ class ProfileUpdateForm(forms.ModelForm):
         fields = ['image']
 
 
-class AddCommentForm(forms.Form):
-    your_name = forms.CharField(label='Author', max_length=100)
-

@@ -1,0 +1,37 @@
+{% extends "pages/base.html" %}
+{% block content %}
+
+
+
+<div>
+
+    {% if own_user.id == other_user.id %}
+<h1>
+    Her er alle kommentarene dine!
+    </h1>
+    {% else %}
+    <h1>
+    Her er alle kommentarene til {{other_user.username}} !
+        </h1>
+    {% endif %}
+<br/>
+    <form action=" " method="post">
+    <label for="your_name">Kommentar: </label>
+<input id="comment" type="text" name="comment" maxlength="400" required>
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Submit">
+    </form>
+    </br>
+
+{% for feedback in object_list %}
+ {{ feedback.comment }} - {{ feedback.rating }}
+     <br/>
+    <small>Skrevet av <a>{{ feedback.author }} </a> | {{ feedback.published }} </small> <br/> <hr>
+
+{% endfor %}
+
+</div>
+
+{% endblock content %}
+

@@ -5,7 +5,6 @@
     {% if user.id == other_user.id %}
 <h1>
     Her er alle kommentarene dine!
-
 </h1>
 
     {% else %}
@@ -20,7 +19,6 @@
     <strong>Rating: {{ feedback.rating }}/5 </strong> <br/> {{ feedback.comment }}
      <br/>
     <small>Skrevet av <a>{{ feedback.author }} </a> | {{ feedback.published }} </small> <br/> <hr>
-
 {% endfor %}
     <a class="btn btn-outline-info nounderline" href="create_feedback/">Legg til</a>
 </div>

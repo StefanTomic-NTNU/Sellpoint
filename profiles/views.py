@@ -101,7 +101,6 @@ class FeedbackCreateView(CreateView):
     model = Feedback
     form_class = FeedbackForm
     template_name = 'profiles/feedback_create.html'
-   # fields = '__all__'
 
     def get_success_url(self):
         return reverse_lazy('feedback', kwargs={'pk': self.kwargs['pk']})

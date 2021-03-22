@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 from django.core.validators import MinValueValidator, MaxValueValidator
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 
 
 class Profile(models.Model):
@@ -16,7 +16,7 @@ class Profile(models.Model):
 
 
 class Feedback(models.Model):
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="feedbacks")
     rating = models.PositiveSmallIntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(5)])
     comment = models.TextField(max_length=500)
     published = models.DateTimeField(default=timezone.now)
@@ -27,3 +27,5 @@ class Feedback(models.Model):
 
     def get_absolute_url(self):
         return reverse('feedback', args=(str(self.id)))
+
+

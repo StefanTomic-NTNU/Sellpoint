@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse_lazy
+
 from .models import Feedback
 from django.http import HttpResponseRedirect
 from django.views.generic import ListView, CreateView
@@ -100,3 +102,6 @@ class FeedbackCreateView(CreateView):
     form_class = FeedbackForm
     template_name = 'profiles/feedback_create.html'
    # fields = '__all__'
+
+    def get_success_url(self):
+        return reverse_lazy('feedback', kwargs={'pk': self.kwargs['pk']})

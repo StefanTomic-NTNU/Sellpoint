@@ -14,9 +14,10 @@
         </h1>
 
     {% endif %}
+
 <br/>
 {% for feedback in object_list %}
- {{ feedback.comment }} - {{ feedback.rating }}
+    <strong>Rating: {{ feedback.rating }}/5 </strong> <br/> {{ feedback.comment }}
      <br/>
     <small>Skrevet av <a>{{ feedback.author }} </a> | {{ feedback.published }} </small> <br/> <hr>
 

@@ -3,18 +3,19 @@
 
 
 <div>
-<form method="POST" class="form-group">
+<form method="POST" class="form-group" >
     {% csrf_token %}
     {{ form.as_p }}
     <!--Her skal det være other_user.id i stedet for user.id, men other_user.id funker ikke atm -->
 
-<Button class ="btn btn-outline-info nounderline" type="submit">Lagre</Button>
-    <a class ="btn btn-outline-info nounderline" href="/profile/{{ user.id }}/feedback/">Gå tilbake</a>
+<Button class ="btn btn-outline-info nounderline" type="submit" value="Submit">Lagre</Button>
 
 </form>
 
     <br/>
 </div>
+
+
 
 
 

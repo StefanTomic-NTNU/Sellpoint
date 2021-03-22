@@ -18,7 +18,10 @@
 {% for feedback in object_list %}
     <strong>Rating: {{ feedback.rating }}/5 </strong> <br/> {{ feedback.comment }}
      <br/>
-    <small>Skrevet av <a>{{ feedback.author }} </a> | {{ feedback.published }} </small> <br/> <hr>
+
+    <!-- TODO legge til link slik at brukeren blir redirected til profilen -->
+
+    <small>Skrevet av <a href="#">{{ feedback.author }} </a> | {{ feedback.published }} </small> <br/> <hr>
 {% endfor %}
     <a class="btn btn-outline-info nounderline" href="create_feedback/">Legg til</a>
 </div>

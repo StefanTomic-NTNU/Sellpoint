@@ -85,6 +85,7 @@ class FeedbackForm(forms.ModelForm):
             'comment': forms.Textarea(attrs={'class': 'form-control'}),
             'rating': forms.TextInput(attrs={'class': 'form-control'}),
             'published': forms.DateInput(attrs={'class': 'form-control'}),
-            'author': forms.Select(attrs={'class': 'form-control'})
+            'author': forms.Select(attrs={'class': 'form-control'}),
+            'recipient': forms.Select(attrs={'class': 'form-control'})
         }
-        fields = ['author', 'comment', 'rating', 'published']
+        fields = ['author', 'comment', 'rating', 'published', 'recipient']

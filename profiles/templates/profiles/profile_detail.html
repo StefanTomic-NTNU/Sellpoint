@@ -12,6 +12,10 @@
       </div>
     <div class="form-group" style="margin-top:30px">
 
+            <a class="btn btn-outline-info nounderline" href="{% url 'user-saved-ads' %}">
+                Lagrede annonser
+            </a>
+
             <a class="btn btn-outline-info nounderline" href="{% url 'user-ads' other_user.username %}">
                 {% if own_user.id == other_user.id %}
                 Mine annonser 

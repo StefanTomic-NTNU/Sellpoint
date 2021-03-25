@@ -3,7 +3,7 @@ from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Advertisement, Category
+from .models import Advertisement, Category, UserSavedAd
 from .filters import AdvertisementFilter
 
 
@@ -52,6 +52,19 @@ class UserAdvertisementListView(ListView):
         user = get_object_or_404(User, username=self.kwargs.get('username'))
         context['username'] = user.username
         return context
+
+
+def user_saved_advertisements(request):
+    user = get_object_or_404(User, username=request.user)
+    user_save_ads = UserSavedAd.objects.filter(user=user)
+    ads = []
+    for us_ad in user_save_ads:
+        ads.append(us_ad.ad)
+    context = {
+        'saved_ads': True,
+        'advertisements': ads
+    }
+    return render(request, 'advertisements/ads.html', context)
 
 
 class CategoryAdvertisementListView(ListView):

@@ -3,15 +3,19 @@
 
 <div style="margin-left: 15%; margin-right: 15%">
     <h1 class="mb-3 ads-h1" style="padding-bottom: 30px; font-size: 40; text-align:center; color: #003366;">
-        {% if username %}
-        Annonsene til {{ username }}
-        {% elif chocen_category_name %}
-        {{ chocen_category_name }}
-        {% else %}Søk i annonser
+        {% if saved_ads %}
+            Mine lagrede annonser
+        {% else %}
+            {% if username %}
+            Annonsene til {{ username }}
+            {% elif chocen_category_name %}
+            {{ chocen_category_name }}
+            {% else %}Søk i annonser
+            {% endif %}
         {% endif %}
     </h1>
 
-    {% if username %}
+    {% if username or saved_ads %}
     {% else %}
     <div class="form-div row">
     <div class="row">

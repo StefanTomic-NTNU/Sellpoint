@@ -28,3 +28,9 @@ class Advertisement(models.Model):
 
     def __str__(self):
         return self.title + ": NOK" + str(self.price)
+
+
+class UserSavedAd(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    ad = models.ForeignKey(Advertisement, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)  # When was this relationship established

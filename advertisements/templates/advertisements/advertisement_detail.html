@@ -33,6 +33,12 @@
         </h4>
 
 
+        {% if not object.author == user %}
+        <form action="/save-ad/" method="post">
+        <button type="button" class="btn btn-primary">Lagre Annonse</button>
+        </form>
+        {% endif %}
+
         {% if object.author == user %}
             <div>
                 <a class="btn btn-secondary btm-sm mt-1 mb-1" href="{% url 'ad-update' object.id %}">Rediger annonse</a>

@@ -1,4 +1,5 @@
 {% extends "pages/base.html" %}
+{% load crispy_forms_tags %}
 {% block content %}
 <div class = "container">
     <div class = "advertisement-detail">
@@ -34,8 +35,8 @@
 
 
         {% if not object.author == user %}
-        <form action="/save-ad/" method="post">
-        <button type="button" class="btn btn-primary">Lagre Annonse</button>
+        <form method="post">
+            <button type="button" class="btn btn-primary">Lagre Annonse</button>
         </form>
         {% endif %}
 

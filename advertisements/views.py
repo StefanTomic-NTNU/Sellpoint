@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
@@ -26,6 +26,12 @@ def advertisement_list(request):
         'chocen_category_name': chocen_category_name
     }
     return render(request, 'advertisements/ads.html', context)
+
+
+def save_ad(request, id):
+    ad = Advertisement.objects.get(pk=id)
+    UserSavedAd.objects.create(user = request.user, ad = ad)
+    return redirect(reverse('ad-detail', args=[id]))
 
 
 class AdvertisementListView(ListView):

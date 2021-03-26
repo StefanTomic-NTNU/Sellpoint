@@ -35,5 +35,8 @@ class UserSavedAd(models.Model):
     ad = models.ForeignKey(Advertisement, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)  # When was this relationship established
 
+    class Meta:
+        unique_together = (('user', 'ad'))
+
     def __str__(self):
         return str(self.user) + "--" + str(self.ad)

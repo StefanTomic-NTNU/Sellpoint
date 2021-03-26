@@ -34,7 +34,7 @@
         </h4>
 
 
-        {% if not object.author == user %}
+        {% if user.is_authenticated and not object.author == user %}
 
             <a href="{% url 'save-or-delete-ad' object.id %}" class="btn btn-primary">
                 {% if not user_saved_ad %}

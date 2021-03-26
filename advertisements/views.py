@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -101,9 +102,10 @@ class AdvertisementDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user = self.request.user
-        ad = super(AdvertisementDetailView, self).get_object()
-        user_saved_ad = True if UserSavedAd.objects.filter(user=user, ad=ad) else False
-        context['user_saved_ad'] = user_saved_ad
+        if user.is_authenticated:
+            ad = super(AdvertisementDetailView, self).get_object()
+            user_saved_ad = True if UserSavedAd.objects.filter(user=user, ad=ad) else False
+            context['user_saved_ad'] = user_saved_ad
         return context
 
 

@@ -20,11 +20,18 @@ def advertisement_list(request):
     if chocen_category_id != '':
         chocen_category_name = Category.objects.get(id=chocen_category_id).name
 
+    saved_ads = []
+    if request.user.is_authenticated:
+        user_saved_ads = UserSavedAd.objects.filter(user=request.user)
+        for user_saved_ad in user_saved_ads:
+            saved_ads.append(user_saved_ad.ad)
+
     context = {
         'advertisements': advertisements,
         'ad_filter': ad_filter,
         'logged_in_user': request.user,
-        'chocen_category_name': chocen_category_name
+        'chocen_category_name': chocen_category_name,
+        'user_saved_ads': saved_ads
     }
     return render(request, 'advertisements/ads.html', context)
 

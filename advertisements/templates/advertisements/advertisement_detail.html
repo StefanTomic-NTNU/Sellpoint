@@ -35,7 +35,14 @@
 
 
         {% if not object.author == user %}
-            <a href="{% url 'save-ad' object.id %}" class="btn btn-primary">Lagre Annonse</a>
+
+            <a href="{% url 'save-or-delete-ad' object.id %}" class="btn btn-primary">
+                {% if not user_saved_ad %}
+                    Lagre Annonse
+                {% else %}
+                    Fjern fra lagrede annonser
+                {% endif %}
+            </a>
         {% endif %}
 
         {% if object.author == user %}

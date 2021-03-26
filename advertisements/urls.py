@@ -6,7 +6,7 @@ from .views import UserAdvertisementListView, \
     AdvertisementCreateView, \
     AdvertisementUpdateView, \
     AdvertisementDeleteView, \
-    advertisement_list, user_saved_advertisements, save_ad
+    advertisement_list, user_saved_advertisements, save_or_delete_ad
 
 urlpatterns = [
     path('', advertisement_list, name='ads'),
@@ -27,5 +27,5 @@ urlpatterns = [
          AdvertisementDeleteView.as_view(), name='ad-delete'),
     path('ad/new',
          AdvertisementCreateView.as_view(), name='ad-create'),
-    path('savead/<int:id>', save_ad, name='save-ad'),
+    path('savead/<int:id>', save_or_delete_ad, name='save-or-delete-ad'),
 ]

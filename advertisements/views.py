@@ -28,9 +28,13 @@ def advertisement_list(request):
     return render(request, 'advertisements/ads.html', context)
 
 
-def save_ad(request, id):
+def save_or_delete_ad(request, id):
     ad = Advertisement.objects.get(pk=id)
-    UserSavedAd.objects.create(user = request.user, ad = ad)
+    try:
+        user_saved_ad = UserSavedAd.objects.get(user=request.user, ad=ad)
+        user_saved_ad.delete()
+    except:
+        UserSavedAd.objects.create(user=request.user, ad=ad)
     return redirect(reverse('ad-detail', args=[id]))
 
 
@@ -94,13 +98,13 @@ class CategoryAdvertisementListView(ListView):
 class AdvertisementDetailView(DetailView):
     model = Advertisement
 
-    # Code that does not work
-    # def get_context_data(self, **kwargs):
-    #     # Call the base implementation first to get a context
-    #     context = super().get_context_data(**kwargs)
-    #     uri = self.request.GET
-    #     print(uri)
-    #     return context
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = self.request.user
+        ad = super(AdvertisementDetailView, self).get_object()
+        user_saved_ad = True if UserSavedAd.objects.filter(user=user, ad=ad) else False
+        context['user_saved_ad'] = user_saved_ad
+        return context
 
 
 class UserAdvertisementDetailView(DetailView):

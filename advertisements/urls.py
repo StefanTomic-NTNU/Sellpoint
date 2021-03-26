@@ -28,4 +28,5 @@ urlpatterns = [
     path('ad/new',
          AdvertisementCreateView.as_view(), name='ad-create'),
     path('savead/<int:id>', save_or_delete_ad, name='save-or-delete-ad'),
+
 ]

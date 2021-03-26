@@ -35,7 +35,7 @@ def save_or_delete_ad(request, id):
         user_saved_ad.delete()
     except:
         UserSavedAd.objects.create(user=request.user, ad=ad)
-    return redirect(reverse('ad-detail', args=[id]))
+    return redirect(request.META.get('HTTP_REFERER'))
 
 
 class AdvertisementListView(ListView):
@@ -111,8 +111,11 @@ class UserAdvertisementDetailView(DetailView):
     model = Advertisement
 
     def get_context_data(self, **kwargs):
-        # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
+        logged_user = self.request.user
+        ad = super(UserAdvertisementDetailView, self).get_object()
+        user_saved_ad = True if UserSavedAd.objects.filter(user=logged_user, ad=ad) else False
+        context['user_saved_ad'] = user_saved_ad
         user = get_object_or_404(User, username=self.kwargs.get('username'))
         context['username'] = user.username
         return context

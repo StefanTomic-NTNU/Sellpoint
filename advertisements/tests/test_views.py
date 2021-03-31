@@ -107,7 +107,7 @@ class TestViews(BaseTest):
 
     # to remove the `TEST_DIR` folder at the
     # end of tests
-    def tearDownModule(self):
+    def tearDown(self):
         print(
         "\nDeleting temporary files...\n")
         try:

@@ -10,16 +10,14 @@
         </a>
         {% endif %}
 
-        <div class="float-right" style="padding-left:20px; padding-bottom:90%; padding-top:10%;">
-            <img class ="rounded img-fluid" src="{{ object.image_main.url }}"
-                 style="width:500px;
-                          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+        <div class="float-right ad-detail-img-container">
+            <img class ="rounded img-fluid ad-detail-img" src="{{ object.image_main.url }}">
         </div>
 
 
-        <h1 class ="font-weight-light" style="margin-top:40px">{{ object.title }}</h1>
+        <h1 class ="font-weight-light ad-detail-h1">{{ object.title }}</h1>
 
-        <h2 class="font-weight-heavy" style="margin-top:10px">{{ object.price }} NOK </h2>
+        <h2 class="font-weight-heavy ad-detail-h2">{{ object.price }} NOK </h2>
 
         <p>
             {{ object.description }}
@@ -28,7 +26,7 @@
         <h3> {{ object.latitude }}N, {{ object.longitude }}E </h3>
 
 
-        <h4 style="padding: 30px 0px">
+        <h4 class = "ad-detail-h4">
             <a class="nounderline" href="{% url 'profile-detail' object.author.id %}">{{ object.author }} </a>
             <small>Ta kontakt: {{object.author.email}}</small>
         </h4>

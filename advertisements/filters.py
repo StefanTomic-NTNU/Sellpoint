@@ -18,7 +18,7 @@ class AdvertisementFilter(FilterSet):
     q = CharFilter(
         label="Søk",
         field_name="search",
-        method='my_custom_filter',
+        method='search_by_string',
         widget=TextInput(
                 attrs={'class': 'form-control', 'placeholder': 'Søk'})
             )
@@ -73,7 +73,7 @@ class AdvertisementFilter(FilterSet):
 
     def search_by_string(self, queryset, name, value):
         return Advertisement.objects.filter(
-            Q(distance=value, filter_by_order=value)
+            Q(title__icontains=value) | Q(description__icontains=value)
         )
 
     def filter_by_order(self, queryset, name, value):

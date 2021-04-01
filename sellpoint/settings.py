@@ -35,6 +35,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'advertisements.apps.AdvertisementsConfig',
+    'contacts.apps.ContactsConfig',
     'pages.apps.PagesConfig',
     'profiles.apps.ProfilesConfig',
     'crispy_forms',

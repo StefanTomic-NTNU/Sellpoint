@@ -15,12 +15,15 @@
     <link rel="stylesheet" type="text/css" href="{% static 'pages/main.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-
-    {% if title %}
-        <title>Sellpoint - {{ title }}</title>
-    {% else %}
-        <title>Sellpoint</title>
-    {% endif %}
+    <title>
+        Sellpoint
+        {% if title %}
+            - {{ title }}
+        {% endif %}
+        {% if unread_messages %}
+             (unread_messages)
+        {% endif %}
+    </title>
 
 </head>
 <body>
@@ -62,6 +65,12 @@
                 </div>
                 {% if user.is_authenticated %}
                 <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <button class="bg-light nav-button" style="border: none;">
+                            <a class="nav-link" href="{% url 'inbox' %}" style="color: black;"
+                            >Meldinger</a>
+                        </button>
+                    </li>
                     <li class="nav-item">
                         <button class="bg-light nav-button" style="border: none;">
                             <a class="nav-link" href="{% url 'ad-create' %}" style="color: black;"

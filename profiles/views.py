@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
+from contacts.models import Contact
 from sellpoint import settings
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 
@@ -83,3 +84,7 @@ def profile_update(request):
         'p_form': p_form
     }
     return render(request, 'profiles/profile_update.html', context)
+
+def inbox(request):
+    contacts = Contact.objects.order_by('-contact_date').filter(recipient_id=request.user.id)
+    return render(request, 'profiles/inbox.html', {'contacts':contacts})

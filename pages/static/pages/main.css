@@ -314,3 +314,8 @@ a.article-title:hover {
 .register-container {
     max-width:600px;
 }
+
+/*style for reklame*/
+.reklame-div {
+    height: 200px;
+}

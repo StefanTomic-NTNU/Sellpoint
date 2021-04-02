@@ -123,12 +123,16 @@
                     </div>
                 {% endfor %}
             {% endif %}
-            {% if reklame %}
-                <div class="reklame-div">
-                     <img src="media/{{reklame.banner}}">
+
+            {% block content %}{% endblock content %}
+             {% if reklame %}
+                <div class="reklame-div" style=" display: block;
+                          margin-left: auto;
+                          margin-right: auto;">
+                     <img src="../../../media/{{reklame.banner}}"
+                          style="max-height: 200px;">
                 </div>
             {% endif %}
-            {% block content %}{% endblock content %}
       </div>
     </main>
 

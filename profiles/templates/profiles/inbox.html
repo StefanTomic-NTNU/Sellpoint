@@ -24,12 +24,12 @@
                 <div class="card">
 
                     <button class="card-header btn btn-link d-flex justify-content-between nounderline" id="heading{{ contact.id }}" data-toggle="collapse" data-target="#collapse{{ contact.id }}" aria-expanded="true" aria-controls="collapseOne">
-                        <div class="d-flex flex-row nounderline">
-                            <h5 class="mb-0  ">{{ contact.advertisement_title }}</h5>
-                        </div>
-                        <div class="d-flex flex-row-reverse nounderline">
-                            <h5 class="mb-0  ">{{ contact.sender_name }}</h5>
-                        </div>
+                        <a class="d-flex flex-row nounderline" href="{% url 'ad-detail' contact.advertisement.id %}">
+                            <h5 class="mb-0 ">{{ contact.advertisement.title }}</h5>
+                        </a>
+                        <a class="d-flex flex-row-reverse nounderline" href="{% url 'profile-detail' contact.sender.id %}">
+                            <h5 class="mb-0 ">{{ contact.sender.username }}</h5>
+                        </a>
                     </button>
 
                     <div id="collapse{{ contact.id }}" class="collapse show text-center pagination-centered" aria-labelledby="heading{{ contact.id }}" data-parent="#accordion">

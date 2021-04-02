@@ -15,18 +15,12 @@ def contact(request, pk):
     if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid():
-            advertisement_id = pk
-            advertisement_title = advertisement.title
-            recipient_id = recipient.id
             message = form.cleaned_data['message']
-            sender_id = request.user.id
-            sender_name = request.user.username
-            new_contact = Contact(recipient_id=recipient_id,
-                                  advertisement_id=advertisement_id,
-                                  advertisement_title=advertisement_title,
+            sender = request.user
+            new_contact = Contact(recipient=recipient,
+                                  advertisement=advertisement,
                                   message=message,
-                                  sender_id=sender_id,
-                                  sender_name=sender_name)
+                                  sender=sender)
             new_contact.save()
             messages.success(request, 'Medling sendt!')
             return redirect('ads')

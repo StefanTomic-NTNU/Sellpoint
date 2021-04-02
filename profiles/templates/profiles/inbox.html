@@ -15,27 +15,30 @@
            </p>
         </div>
     </div>
-        <div id="accordion mt-5" style="position: relative;    width:40%;
-    top: 300px;
-    right: 30%;
+        <div id="accordion mt-5" style="position: relative;    width:50%;
+    top: 200px;
+    right: 20%;
     ">
             {% for contact in contacts %}
 
                 <div class="card">
-                <div class="card-header" id="heading{{ contact.id }}">
-                  <h5 class="mb-0">
-                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{ contact.id }}" aria-expanded="true" aria-controls="collapseOne">
-                        {{ contact.advertisement_id }}
-                    </button>
-                  </h5>
-                </div>
 
-                <div id="collapse{{ contact.id }}" class="collapse show text-center pagination-centered" aria-labelledby="heading{{ contact.id }}" data-parent="#accordion">
-                  <div class="card-body">
-                      {{ contact.message }}
-                  </div>
+                    <button class="card-header btn btn-link d-flex justify-content-between nounderline" id="heading{{ contact.id }}" data-toggle="collapse" data-target="#collapse{{ contact.id }}" aria-expanded="true" aria-controls="collapseOne">
+                        <div class="d-flex flex-row nounderline">
+                            <h5 class="mb-0  ">{{ contact.advertisement_title }}</h5>
+                        </div>
+                        <div class="d-flex flex-row-reverse nounderline">
+                            <h5 class="mb-0  ">{{ contact.sender_name }}</h5>
+                        </div>
+                    </button>
+
+                    <div id="collapse{{ contact.id }}" class="collapse show text-center pagination-centered" aria-labelledby="heading{{ contact.id }}" data-parent="#accordion">
+                      <div class="card-body">
+                          {{ contact.message }}
+                      </div>
+                    </div>
+
                 </div>
-              </div>
             {% endfor %}
         </div>
 {% endblock content %}

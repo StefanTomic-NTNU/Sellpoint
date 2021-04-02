@@ -34,6 +34,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'reklame.apps.ReklameConfig',
     'advertisements.apps.AdvertisementsConfig',
     'pages.apps.PagesConfig',
     'profiles.apps.ProfilesConfig',

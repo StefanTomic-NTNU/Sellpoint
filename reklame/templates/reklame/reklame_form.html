@@ -1,0 +1,19 @@
+{% extends "pages/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class = "container">
+    <div class = "reklame-detail">
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <h1> Publiser reklame </h1>
+
+            {{ form|crispy }}
+
+            <button class="btn btn-outline-info publish-ad-btn">
+                Publiser reklame
+            </button>
+        </form>
+    </div>
+</div>
+
+{% endblock content %}

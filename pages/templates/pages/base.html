@@ -62,6 +62,14 @@
                 </div>
                 {% if user.is_authenticated %}
                 <ul class="navbar-nav">
+                     {% if user.profile.is_advertiser %}
+                    <li class="nav-item">
+                        <button class="bg-light nav-button" style="border: none;">
+                            <a class="nav-link" href="{% url 'reklame-create' %}" style="color: black;"
+                            >Publiser reklame</a>
+                        </button>
+                    </li>
+                    {% endif %}
                     <li class="nav-item">
                         <button class="bg-light nav-button" style="border: none;">
                             <a class="nav-link" href="{% url 'ad-create' %}" style="color: black;"
@@ -114,6 +122,11 @@
                         {{ message }}
                     </div>
                 {% endfor %}
+            {% endif %}
+            {% if reklame %}
+                <div class="reklame-div">
+                     <img src="media/{{reklame.banner}}">
+                </div>
             {% endif %}
             {% block content %}{% endblock content %}
       </div>

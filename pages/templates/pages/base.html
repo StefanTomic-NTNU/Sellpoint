@@ -20,7 +20,7 @@
         {% if title %}
             - {{ title }}
         {% endif %}
-        {% if unread_messages %}
+        {% if unread_messages and unread_messages > 0 %}
              (unread_messages)
         {% endif %}
     </title>

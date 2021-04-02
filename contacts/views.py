@@ -27,4 +27,5 @@ def contact(request, pk):
             return redirect('ads')
     else:
         form = ContactForm()
-    return render(request, 'contact.html', {'form': form, 'recipient':recipient})
+    context = {'form': form, 'recipient':recipient, 'title':'contact'}
+    return render(request, 'contact.html', context)

@@ -1,0 +1,20 @@
+{% extends "pages/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class = "container">
+    <div class = "become-advertiser ads-div " >
+        <h1 class="ads-h1">Bli annonsør</h1>
+        <p>Som annonsør kan du legge ut tre reklameannonser per måned.
+            Pris er 2500kr som betales gjennom vips. Send forespørsel og du vil motta vipsnumeret på epost.
+            Du blir annonsør straks betalingen er fullført.
+        </p>
+    <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+        <div class="form-action d-flex justify-content-center">
+            <button type="submit" class="btn btn-outline-info" style="margin-top:20px;">Send forespørsel</button>
+        </div>
+</form>
+
+    </div>
+</div>
+{% endblock content %}

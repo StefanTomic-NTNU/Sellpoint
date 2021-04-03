@@ -63,6 +63,13 @@
                             >Publiser reklame</a>
                         </button>
                     </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <button class="bg-light nav-button" style="border: none;">
+                            <a class="nav-link" href="{% url 'become-advertiser' %}" style="color: #F97934 ;"
+                            >Bli annonsør</a>
+                        </button>
+                    </li>
                     {% endif %}
                     <li class="nav-item">
                         <button class="bg-light nav-button" style="border: none;">

@@ -3,16 +3,23 @@
 {% block content %}
 <div class = "container">
     <div class = "reklame-detail">
+        {% if reklame_left > 0 %}
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <h1> Publiser reklame </h1>
-            <p>Last opp reklamebanner her.</p>
+            <p>Last opp reklamebanner her. Du har {{reklame_left}} reklameannonser igjen å publisere.</p>
+
             {{ form|crispy }}
 
             <button class="btn btn-outline-info publish-ad-btn">
                 Publiser reklame
             </button>
+            <p style="margin-top:15px;"><small>Reklameannonsen din blir synlig i en uke.</small></p>
         </form>
+        {% else %}
+        <h1> Du har brukt opp reklameannonselimit. </h1>
+        <p>Ta kontakt med admin for mer informasjon admin@sellpoint.no</p>
+        {% endif %}
     </div>
 </div>
 

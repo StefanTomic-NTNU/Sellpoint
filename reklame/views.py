@@ -17,6 +17,14 @@ class ReklameCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         form.instance.advertiser = self.request.user.profile
         return super().form_valid(form)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = self.request.user
+        user_reklames = Reklame.objects.filter(advertiser=self.request.user.profile)
+        reklame_left = self.request.user.profile.reklame_limit - len(user_reklames)
+        context['reklame_left'] = reklame_left
+        return context
+
 
 class AdvertiserReklameListView(ListView):
     model = Reklame

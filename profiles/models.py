@@ -10,6 +10,7 @@ class Profile(models.Model):
     latitude = models.DecimalField(max_digits=9, decimal_places=6, default=63.446827)
     longitude = models.DecimalField(max_digits=9, decimal_places=6, default=10.421906)
     is_advertiser = models.BooleanField(default=False)
+    reklame_limit = models.IntegerField(default=3)
 
     def __str__(self):
         return f'{self.user.username}'

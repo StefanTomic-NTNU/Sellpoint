@@ -52,12 +52,6 @@
                                 </a>
                             </button>
                         </li>
-                        <!--<li class="nav-item">
-                            <button class="bg-light nav-button" style="border: none;">
-                                <a class="nav-link" href="#" style="color: black;"
-                                >Om oss</a>
-                            </button>
-                        </li>-->
                     </ul>
                 </div>
                 {% if user.is_authenticated %}
@@ -82,6 +76,15 @@
                             >Profil</a>
                         </button>
                     </li>
+                    {% if user.profile.is_advertiser %}
+                    <li class="nav-item">
+                        <button class="bg-light nav-button" style="border: none;">
+                            <a class="nav-link" href="{% url 'advertiser-ads' user %}" style="color: black;"
+                            >Mine reklameannonser</a>
+                        </button>
+                    </li>
+                    {% endif %}
+                    <li class="nav-item">
                     <li class="nav-item">
                         <button class="bg-light nav-button" style="font-weight: bold;
                                     border: solid black 2px;

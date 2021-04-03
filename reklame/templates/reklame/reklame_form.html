@@ -6,7 +6,7 @@
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <h1> Publiser reklame </h1>
-
+            <p>Last opp reklamebanner her.</p>
             {{ form|crispy }}
 
             <button class="btn btn-outline-info publish-ad-btn">

@@ -15,3 +15,11 @@ class Reklame(models.Model):
                                    limit_choices_to=Q(is_advertiser=True))
     published = models.DateTimeField(default=timezone.now)
     expired = models.DateTimeField(default=one_week_hence)
+
+
+class RequestToBeAdvertiser(models.Model):
+    author = models.ForeignKey(Profile, on_delete=models.CASCADE, unique=True)
+    sent = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return self.author.user.email

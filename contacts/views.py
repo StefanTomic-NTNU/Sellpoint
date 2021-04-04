@@ -1,6 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
+from django.core.mail import send_mail
 from django.shortcuts import render, redirect
 
 from advertisements.models import Advertisement
@@ -26,6 +26,11 @@ def contact(request, pk):
                                   email=email,
                                   sender=sender)
             new_contact.save()
+
+            # send_mail('Ny henvendelse angående ' + advertisement.title + '!',
+            #           'Du har motatt en ny melding. Logg inn for å lese den.',
+            #           )
+
             messages.success(request, 'Medling sendt!')
             return redirect('ads')
     else:

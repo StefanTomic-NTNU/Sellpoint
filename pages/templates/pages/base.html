@@ -67,8 +67,20 @@
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <button class="bg-light nav-button" style="border: none;">
-                            <a class="nav-link" href="{% url 'inbox' %}" style="color: black;"
-                            >Meldinger</a>
+                            <a class="notif nav-link" href="{% url 'inbox' %}" style="color: black;
+                            position: relative;
+                              display: block;">
+
+                                Meldinger
+                                <span class="num" style="position: absolute;
+                                                          right: -1px;
+                                                          top: 4px;
+                                                          color: #e50000;">
+                                    {% if unread_messages %}
+                                        {{ unread_messages }}
+                                    {% endif %}
+                                </span>
+                            </a>
                         </button>
                     </li>
                     <li class="nav-item">

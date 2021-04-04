@@ -85,6 +85,7 @@ def profile_update(request):
     }
     return render(request, 'profiles/profile_update.html', context)
 
+@login_required
 def inbox(request):
     received_contacts = Contact.objects.order_by('-contact_date').filter(recipient=request.user)
     sent_contacts = Contact.objects.order_by('-contact_date').filter(sender=request.user)

@@ -29,10 +29,20 @@
                             <a class="d-flex flex-row nounderline" href="{% url 'ad-detail' received_contact.advertisement.id %}">
                                 <h5 class="mb-0 ">{{ received_contact.advertisement.title }}</h5>
                             </a>
+                            {% else %}
+                            <p class="d-flex flex-row nounderline">
+                                Slettet annonse
+                            </p>
                         {% endif %}
+                    {% if received_contact.sender %}
                         <a class="d-flex flex-row-reverse nounderline" href="{% url 'profile-detail' received_contact.sender.id %}">
                             <h5 class="mb-0 ">{{ received_contact.sender.username }}</h5>
                         </a>
+                    {% else %}
+                            <p class="d-flex flex-row-reverse nounderline">
+                            Slettet bruker
+                            </p>
+                    {% endif %}
                     </button>
 
                     <div id="collapse{{ received_contact.id }}" class="collapse show text-center pagination-centered" aria-labelledby="heading{{ received_contact.id }}" data-parent="#accordion">
@@ -63,10 +73,20 @@
                             <a class="d-flex flex-row nounderline" href="{% url 'ad-detail' sent_contact.advertisement.id %}">
                                 <h5 class="mb-0 ">{{ sent_contact.advertisement.title }}</h5>
                             </a>
+                        {% else %}
+                            <p class="d-flex flex-row nounderline">
+                                Slettet annonse
+                            </p>
                         {% endif %}
+                    {% if sent_contact.recipient %}
                         <a class="d-flex flex-row-reverse nounderline" href="{% url 'profile-detail' sent_contact.recipient.id %}">
                             <h5 class="mb-0 ">{{ sent_contact.recipient.username }}</h5>
                         </a>
+                    {% else %}
+                        <p class="d-flex flex-row-reverse nounderline">
+                        Slettet bruker
+                        </p>
+                    {% endif %}
                     </button>
 
                     <div id="collapse{{ sent_contact.id }}" class="collapse show text-center pagination-centered" aria-labelledby="heading{{ sent_contact.id }}" data-parent="#accordion">

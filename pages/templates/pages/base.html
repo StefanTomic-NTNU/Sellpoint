@@ -59,7 +59,8 @@
                      {% if user.profile.is_advertiser %}
                     <li class="nav-item">
                         <button class="bg-light nav-button" style="border: none;">
-                            <a class="nav-link" href="{% url 'reklame-create' %}" style="color: black;"
+                            <a class="nav-link" href="{% url 'check-if-user-should-renew-subscription' %}"
+                               style="color: black;"
                             >Publiser reklame</a>
                         </button>
                     </li>

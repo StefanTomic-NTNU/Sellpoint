@@ -23,3 +23,11 @@ class RequestToBeAdvertiser(models.Model):
 
     def __str__(self):
         return self.author.user.email
+
+
+class RequestToRenewAbonement(models.Model):
+    author = models.ForeignKey(Profile, on_delete=models.CASCADE, unique=True)
+    sent = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return self.author.user.email

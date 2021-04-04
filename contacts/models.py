@@ -18,4 +18,9 @@ class Contact(models.Model):
     contact_date = models.DateTimeField(default=datetime.now, blank=True)
 
     def __str__(self):
-        return self.sender.username + " --> " + self.recipient.username
+        first_part, second_part = 'Deleted user', 'Deleted user'
+        if self.sender:
+            first_part = self.sender.username
+        if self.recipient:
+            second_part = self.recipient.username
+        return first_part + " --> " + second_part

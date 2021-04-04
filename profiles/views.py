@@ -87,5 +87,8 @@ def profile_update(request):
 
 def inbox(request):
     contacts = Contact.objects.order_by('-contact_date').filter(recipient=request.user)
+    for contact in contacts:
+        contact.message_read = True
+        contact.save()
     context = {'contacts':contacts, 'title':'inbox'}
     return render(request, 'profiles/inbox.html', context)

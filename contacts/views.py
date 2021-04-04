@@ -10,8 +10,8 @@ from .models import Contact
 
 @login_required
 def contact(request, pk):
-    advertisement = None
-    recipient = User.objects.get(id=pk)
+    advertisement = Advertisement.objects.get(id=pk)
+    recipient = advertisement.author
     if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid():

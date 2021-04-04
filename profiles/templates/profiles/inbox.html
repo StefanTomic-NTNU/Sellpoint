@@ -35,9 +35,16 @@
                     </button>
 
                     <div id="collapse{{ contact.id }}" class="collapse show text-center pagination-centered" aria-labelledby="heading{{ contact.id }}" data-parent="#accordion">
-                      <div class="card-body">
+
+                        <div class="card-body">
                           {{ contact.message }}
-                      </div>
+                        </div>
+                        <div class="card-body">
+                          Mobilnummer: {{ contact.phone }}
+                        </div>
+                        <div class="card-body">
+                          Epost: {{ contact.email }}
+                        </div>
                     </div>
 
                 </div>

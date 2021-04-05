@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 from django.core.validators import MinValueValidator, MaxValueValidator
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse
 
 
 class Profile(models.Model):
@@ -16,11 +16,11 @@ class Profile(models.Model):
 
 
 class Feedback(models.Model):
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="feedbacks", default="profile_username")
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="feedbacks")
     rating = models.PositiveSmallIntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(5)])
     comment = models.TextField(max_length=500)
     published = models.DateTimeField(default=timezone.now)
-    recipient = models.ForeignKey(Profile, on_delete=models.CASCADE, blank=True)
+    recipient = models.ForeignKey(Profile, on_delete=models.CASCADE)
 
     # Dette er hva som vises i admin-panelet
     def __str__(self):

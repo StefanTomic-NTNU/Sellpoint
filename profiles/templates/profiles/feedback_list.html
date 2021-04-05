@@ -22,9 +22,12 @@
     <!-- TODO legge til link slik at brukeren blir redirected til profilen -->
 
     <small>Skrevet av <a href="#">{{ feedback.author }} </a> | {{ feedback.published }} </small> <br/> <hr>
+
 {% endfor %}
 
+    {% if not own_user.id == other_user.id %}
         <a class="btn btn-outline-info nounderline" href="create_feedback/">Legg til</a>
+    {% endif %}
 
 </div>
 

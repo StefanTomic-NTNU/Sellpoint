@@ -3,7 +3,7 @@
 
 
 <div>
-<form method="POST" class="form-group" >
+<form method="POST" class="form-group" id="createForm">
     {% csrf_token %}
     {{ form.as_p }}
     <!--Her skal det være other_user.id i stedet for user.id, men other_user.id funker ikke atm -->

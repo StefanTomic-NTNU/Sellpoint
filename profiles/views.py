@@ -1,12 +1,11 @@
 from django.contrib.auth import logout
 from django.contrib.auth.models import User
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.urls import reverse_lazy
 
-from .models import Feedback
-from django.http import HttpResponseRedirect
+from .models import Feedback, Profile
 from django.views.generic import ListView, CreateView
 
 from sellpoint import settings
@@ -112,5 +111,16 @@ class FeedbackCreateView(CreateView):
     form_class = FeedbackForm
     template_name = 'profiles/feedback_create.html'
 
-    def get_success_url(self):
-        return reverse_lazy('feedback', kwargs={'pk': self.kwargs['pk']})
+    def post(self, request, pk):
+        author = request.user
+        recipient = User.objects.get(pk=pk)
+        recipient_profile = Profile.objects.get(user=recipient)
+        form_temp = FeedbackForm(request.POST)
+        form = form_temp.save(commit=False)
+        form.author = author
+        form.recipient = recipient_profile
+        form.save()
+        return HttpResponseRedirect('/profile/' + str(recipient.id) + '/feedback/')
+
+
+

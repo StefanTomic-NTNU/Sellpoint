@@ -96,6 +96,16 @@ class FeedbackListView(ListView):
     template_name = 'profiles/feedback_list.html'
     ordering = ['published']
 
+    def get(self, request, pk):
+        own_user = request.user
+        other_user = User.objects.get(pk=pk)
+        object_list = Feedback.objects.all().filter(recipient=other_user.id)
+        return render(request, 'profiles/feedback_list.html', {
+            'own_user': own_user,
+            'other_user': other_user,
+            'object_list': object_list
+        })
+
 
 class FeedbackCreateView(CreateView):
     model = Feedback

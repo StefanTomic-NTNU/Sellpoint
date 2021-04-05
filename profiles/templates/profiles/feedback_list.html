@@ -2,14 +2,14 @@
 {% block content %}
 
 <div>
-    {% if user.id == other_user.id %}
+    {% if own_user.id == other_user.id %}
 <h1>
     Her er alle kommentarene dine!
 </h1>
 
     {% else %}
     <h1>
-    Her er alle kommentarene til {{other_user.username}} !
+    Her er alle kommentarene til {{other_user.username}}!
         </h1>
 
     {% endif %}

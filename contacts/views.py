@@ -31,7 +31,7 @@ def contact(request, pk):
             #           'Du har motatt en ny melding. Logg inn for å lese den.',
             #           )
 
-            messages.success(request, 'Medling sendt!')
+            messages.success(request, 'Melding sendt!')
             return redirect('ads')
     else:
         form = ContactForm(initial={'email': request.user.email})

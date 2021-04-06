@@ -34,6 +34,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'reklame.apps.ReklameConfig',
     'advertisements.apps.AdvertisementsConfig',
     'pages.apps.PagesConfig',
     'profiles.apps.ProfilesConfig',
@@ -135,3 +136,5 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LOGIN_REDIRECT_URL = 'pages-home'
 LOGIN_URL = 'login'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

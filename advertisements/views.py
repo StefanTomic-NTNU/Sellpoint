@@ -1,9 +1,11 @@
-from django.contrib.auth.decorators import login_required
+import random
 from django.contrib.auth.models import User
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+
+from reklame.models import Reklame
 from .models import Advertisement, Category, UserSavedAd
 from .filters import AdvertisementFilter
 
@@ -25,13 +27,15 @@ def advertisement_list(request):
         user_saved_ads = UserSavedAd.objects.filter(user=request.user)
         for user_saved_ad in user_saved_ads:
             saved_ads.append(user_saved_ad.ad)
-
+    items = list(Reklame.objects.all())
+    random_item = random.choice(items) if items else None
     context = {
         'advertisements': advertisements,
         'ad_filter': ad_filter,
         'logged_in_user': request.user,
         'chocen_category_name': chocen_category_name,
-        'user_saved_ads': saved_ads
+        'user_saved_ads': saved_ads,
+        'reklame': random_item
     }
     return render(request, 'advertisements/ads.html', context)
 
@@ -69,6 +73,15 @@ class UserAdvertisementListView(ListView):
         context = super().get_context_data(**kwargs)
         user = get_object_or_404(User, username=self.kwargs.get('username'))
         context['username'] = user.username
+        items = list(Reklame.objects.all())
+        random_item = random.choice(items) if items else None
+        context['reklame'] = random_item
+        saved_ads = []
+        if self.request.user.is_authenticated:
+            user_saved_ads = UserSavedAd.objects.filter(user=self.request.user)
+            for user_saved_ad in user_saved_ads:
+                saved_ads.append(user_saved_ad.ad)
+        context['user_saved_ads'] = saved_ads
         return context
 
 
@@ -113,6 +126,9 @@ class AdvertisementDetailView(DetailView):
             ad = super(AdvertisementDetailView, self).get_object()
             user_saved_ad = True if UserSavedAd.objects.filter(user=user, ad=ad) else False
             context['user_saved_ad'] = user_saved_ad
+            items = list(Reklame.objects.all())
+            random_item = random.choice(items) if items else None
+            context['reklame'] = random_item
         return context
 
 
@@ -127,6 +143,9 @@ class UserAdvertisementDetailView(DetailView):
         context['user_saved_ad'] = user_saved_ad
         user = get_object_or_404(User, username=self.kwargs.get('username'))
         context['username'] = user.username
+        items = list(Reklame.objects.all())
+        random_item = random.choice(items) if items else None
+        context['reklame'] = random_item
         return context
 
 

@@ -1,10 +1,12 @@
 import random
+
 from django.contrib.auth import logout
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
+from contacts.models import Contact
 from reklame.models import Reklame
 from sellpoint import settings
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
@@ -90,3 +92,17 @@ def profile_update(request):
         'p_form': p_form
     }
     return render(request, 'profiles/profile_update.html', context)
+
+@login_required
+def inbox(request):
+    received_contacts = Contact.objects.order_by('-contact_date').filter(recipient=request.user)
+    sent_contacts = Contact.objects.order_by('-contact_date').filter(sender=request.user)
+    for received_contact in received_contacts:
+        received_contact.message_read = True
+        received_contact.save()
+    context = {
+        'received_contacts':received_contacts,
+        'sent_contacts': sent_contacts,
+        'title':'inbox'
+        }
+    return render(request, 'profiles/inbox.html', context)

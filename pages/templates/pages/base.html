@@ -15,12 +15,15 @@
     <link rel="stylesheet" type="text/css" href="{% static 'pages/main.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-
-    {% if title %}
-        <title>Sellpoint - {{ title }}</title>
-    {% else %}
-        <title>Sellpoint</title>
-    {% endif %}
+    <title>
+        Sellpoint
+        {% if title %}
+            - {{ title }}
+        {% endif %}
+        {% if unread_messages and unread_messages > 0 %}
+             ({{ unread_messages }})
+        {% endif %}
+    </title>
 
 </head>
 <body>
@@ -72,6 +75,25 @@
                         </button>
                     </li>
                     {% endif %}
+                    <li class="nav-item">
+                        <button class="bg-light nav-button" style="border: none;">
+                            <a class="notif nav-link" href="{% url 'inbox' %}" style="color: black;
+                            position: relative;
+                                left: -20px;
+                              display: block;">
+
+                                Meldinger
+                                <span class="num" style="position: absolute;
+                                                          right: -1px;
+                                                          top: 4px;
+                                                          color: #e50000;">
+                                    {% if unread_messages %}
+                                        {{ unread_messages }}
+                                    {% endif %}
+                                </span>
+                            </a>
+                        </button>
+                    </li>
                     <li class="nav-item">
                         <button class="bg-light nav-button" style="border: none;">
                             <a class="nav-link" href="{% url 'ad-create' %}" style="color: black;"

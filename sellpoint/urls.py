@@ -13,6 +13,7 @@ urlpatterns = [
     path('advertisements/', include('advertisements.urls')),
     path('reklame/', include('reklame.urls')),
     path('admin/', admin.site.urls),
+    path('contact/', include('contacts.urls')),
     path('profile/', include('profiles.urls')),
     path('register/', profile_views.register, name='register'),
     path('login/', auth_views.LoginView.as_view(template_name='profiles/login.html',

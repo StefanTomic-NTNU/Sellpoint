@@ -34,6 +34,8 @@
 
         {% if user.is_authenticated and not object.author == user %}
 
+            <a class="btn btn-info btm-sm mt-1 mb-1" href="{% url 'contact' object.id %}">Ta kontakt!</a>
+
             <a href="{% url 'save-or-delete-ad' object.id %}" class="btn btn-primary">
                 {% if not user_saved_ad %}
                     Lagre Annonse
@@ -47,10 +49,6 @@
             <div>
                 <a class="btn btn-secondary btm-sm mt-1 mb-1" href="{% url 'ad-update' object.id %}">Rediger annonse</a>
                 <a class="btn btn-danger btm-sm mt-1 mb-1" href="{% url 'ad-delete' object.id %}">Slett annonse</a>
-            </div>
-        {% else %}
-            <div>
-                <!--a class="btn btn-outline-secondary" href="#" >Ta kontakt!</a-->
             </div>
         {% endif %}
 

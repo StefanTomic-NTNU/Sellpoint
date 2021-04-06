@@ -1,0 +1,120 @@
+{% extends "pages/base.html" %}
+{% block content %}
+
+    <!--div class="media-body profile-div" style="margin-left: 20%">
+    <h1 class="account-heading" >Inbox</h1>
+        <div>
+            <p class="text-secondary">
+                Du har
+                {% if unread_messages %}
+                    unread_messages
+                {% else %}
+                    ingen
+                {% endif %}
+                 nye meldinger
+           </p>
+        </div>
+    </div-->
+    <div style="margin-right: auto; margin-left: auto; width:50%; margin-bottom: 150px">
+        <div id="accordion mt-5" style="position: relative;">
+            <h1>
+                Motatte meldinger
+            </h1>
+            {% for received_contact in received_contacts %}
+
+                <div class="card">
+
+                    <button class="card-header btn btn-link d-flex justify-content-between nounderline"
+                            id="heading{{ received_contact.id }}" data-toggle="collapse"
+                            data-target="#collapse{{ received_contact.id }}" aria-expanded="true"
+                            aria-controls="collapseOne">
+                        {% if received_contact.advertisement %}
+                            <a class="d-flex flex-row nounderline"
+                               href="{% url 'ad-detail' received_contact.advertisement.id %}">
+                                <h5 class="mb-0 ">{{ received_contact.advertisement.title }}</h5>
+                            </a>
+                        {% else %}
+                            <p class="d-flex flex-row nounderline">
+                                Slettet annonse
+                            </p>
+                        {% endif %}
+                        {% if received_contact.sender %}
+                            <a class="d-flex flex-row-reverse nounderline"
+                               href="{% url 'profile-detail' received_contact.sender.id %}">
+                                <h5 class="mb-0 ">{{ received_contact.sender.username }}</h5>
+                            </a>
+                        {% else %}
+                            <p class="d-flex flex-row-reverse nounderline">
+                                Slettet bruker
+                            </p>
+                        {% endif %}
+                    </button>
+
+                    <div id="collapse{{ received_contact.id }}" class="collapse show text-center pagination-centered"
+                         aria-labelledby="heading{{ received_contact.id }}" data-parent="#accordion">
+
+                        <div class="card-body">
+                            {{ received_contact.message }}
+                        </div>
+                        <div class="card-body">
+                            Mobilnummer: {{ received_contact.phone }}
+                        </div>
+                        <div class="card-body">
+                            Epost: {{ received_contact.email }}
+                        </div>
+                    </div>
+
+                </div>
+            {% endfor %}
+        </div>
+        <h1 style="margin-top: 10%">
+            Sendte meldinger
+        </h1>
+        {% for sent_contact in sent_contacts %}
+
+            <div class="card">
+
+                <button class="card-header btn btn-link d-flex justify-content-between nounderline"
+                        id="heading{{ sent_contact.id }}" data-toggle="collapse"
+                        data-target="#collapse{{ sent_contact.id }}" aria-expanded="true" aria-controls="collapseOne">
+                    {% if sent_contact.advertisement %}
+                        <a class="d-flex flex-row nounderline"
+                           href="{% url 'ad-detail' sent_contact.advertisement.id %}">
+                            <h5 class="mb-0 ">{{ sent_contact.advertisement.title }}</h5>
+                        </a>
+                    {% else %}
+                        <p class="d-flex flex-row nounderline">
+                            Slettet annonse
+                        </p>
+                    {% endif %}
+                    {% if sent_contact.recipient %}
+                        <a class="d-flex flex-row-reverse nounderline"
+                           href="{% url 'profile-detail' sent_contact.recipient.id %}">
+                            <h5 class="mb-0 ">{{ sent_contact.recipient.username }}</h5>
+                        </a>
+                    {% else %}
+                        <p class="d-flex flex-row-reverse nounderline">
+                            Slettet bruker
+                        </p>
+                    {% endif %}
+                </button>
+
+                <div id="collapse{{ sent_contact.id }}" class="collapse show text-center pagination-centered"
+                     aria-labelledby="heading{{ sent_contact.id }}" data-parent="#accordion">
+
+                    <div class="card-body">
+                        {{ sent_contact.message }}
+                    </div>
+                    <div class="card-body">
+                        Mobilnummer: {{ sent_contact.phone }}
+                    </div>
+                    <div class="card-body">
+                        Epost: {{ sent_contact.email }}
+                    </div>
+                </div>
+
+            </div>
+        {% endfor %}
+    </div>
+    </div>
+{% endblock content %}

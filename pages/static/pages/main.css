@@ -4,6 +4,23 @@ body {
 
 }
 
+a.notif {
+  position: relative;
+  display: block;
+  height: 50px;
+  width: 50px;
+  background: url('http://i.imgur.com/evpC48G.png');
+  background-size: contain;
+  text-decoration: none;
+}
+
+.num {
+  position: absolute;
+  right: 11px;
+  top: 6px;
+  color: #fff;
+}
+
 
 .container {
     display: grid;

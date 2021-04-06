@@ -1,9 +1,12 @@
+import random
 from django.contrib.auth.models import User
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Advertisement, Category
+
+from reklame.models import Reklame
+from .models import Advertisement, Category, UserSavedAd
 from .filters import AdvertisementFilter
 
 
@@ -18,13 +21,32 @@ def advertisement_list(request):
     if chocen_category_id != '':
         chocen_category_name = Category.objects.get(id=chocen_category_id).name
 
+    saved_ads = []
+    if request.user.is_authenticated:
+        user_saved_ads = UserSavedAd.objects.filter(user=request.user)
+        for user_saved_ad in user_saved_ads:
+            saved_ads.append(user_saved_ad.ad)
+    items = list(Reklame.objects.all())
+    random_item = random.choice(items) if items else None
     context = {
         'advertisements': advertisements,
         'ad_filter': ad_filter,
         'logged_in_user': request.user,
-        'chocen_category_name': chocen_category_name
+        'chocen_category_name': chocen_category_name,
+        'user_saved_ads': saved_ads,
+        'reklame': random_item
     }
     return render(request, 'advertisements/ads.html', context)
+
+
+def save_or_delete_ad(request, id):
+    ad = Advertisement.objects.get(pk=id)
+    try:
+        user_saved_ad = UserSavedAd.objects.get(user=request.user, ad=ad)
+        user_saved_ad.delete()
+    except:
+        UserSavedAd.objects.create(user=request.user, ad=ad)
+    return redirect(request.META.get('HTTP_REFERER'))
 
 
 class AdvertisementListView(ListView):
@@ -50,7 +72,29 @@ class UserAdvertisementListView(ListView):
         context = super().get_context_data(**kwargs)
         user = get_object_or_404(User, username=self.kwargs.get('username'))
         context['username'] = user.username
+        items = list(Reklame.objects.all())
+        random_item = random.choice(items) if items else None
+        context['reklame'] = random_item
+        saved_ads = []
+        if self.request.user.is_authenticated:
+            user_saved_ads = UserSavedAd.objects.filter(user=self.request.user)
+            for user_saved_ad in user_saved_ads:
+                saved_ads.append(user_saved_ad.ad)
+        context['user_saved_ads'] = saved_ads
         return context
+
+
+def user_saved_advertisements(request):
+    user = get_object_or_404(User, username=request.user)
+    user_save_ads = UserSavedAd.objects.filter(user=user)
+    ads = []
+    for us_ad in user_save_ads:
+        ads.append(us_ad.ad)
+    context = {
+        'saved_ads': True,
+        'advertisements': ads
+    }
+    return render(request, 'advertisements/ads.html', context)
 
 
 class CategoryAdvertisementListView(ListView):
@@ -74,23 +118,33 @@ class CategoryAdvertisementListView(ListView):
 class AdvertisementDetailView(DetailView):
     model = Advertisement
 
-    # Code that does not work
-    # def get_context_data(self, **kwargs):
-    #     # Call the base implementation first to get a context
-    #     context = super().get_context_data(**kwargs)
-    #     uri = self.request.GET
-    #     print(uri)
-    #     return context
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = self.request.user
+        if user.is_authenticated:
+            ad = super(AdvertisementDetailView, self).get_object()
+            user_saved_ad = True if UserSavedAd.objects.filter(user=user, ad=ad) else False
+            context['user_saved_ad'] = user_saved_ad
+            items = list(Reklame.objects.all())
+            random_item = random.choice(items) if items else None
+            context['reklame'] = random_item
+        return context
 
 
 class UserAdvertisementDetailView(DetailView):
     model = Advertisement
 
     def get_context_data(self, **kwargs):
-        # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
+        logged_user = self.request.user
+        ad = super(UserAdvertisementDetailView, self).get_object()
+        user_saved_ad = True if UserSavedAd.objects.filter(user=logged_user, ad=ad) else False
+        context['user_saved_ad'] = user_saved_ad
         user = get_object_or_404(User, username=self.kwargs.get('username'))
         context['username'] = user.username
+        items = list(Reklame.objects.all())
+        random_item = random.choice(items) if items else None
+        context['reklame'] = random_item
         return context
 
 

@@ -6,14 +6,14 @@ from .views import UserAdvertisementListView, \
     AdvertisementCreateView, \
     AdvertisementUpdateView, \
     AdvertisementDeleteView, \
-    advertisement_list
-
+    advertisement_list, user_saved_advertisements, save_or_delete_ad
 
 urlpatterns = [
-    # path('', views.ads, name='ads'),
     path('', advertisement_list, name='ads'),
     path('user/<str:username>',
          UserAdvertisementListView.as_view(), name='user-ads'),
+    path('saved',
+         user_saved_advertisements, name='user-saved-ads'),
     # path('<str:category>', category_list, name='category-ads'),
     path('ad/<int:pk>/',
          AdvertisementDetailView.as_view(), name='ad-detail'),
@@ -26,5 +26,7 @@ urlpatterns = [
     path('ad/<int:pk>/delete',
          AdvertisementDeleteView.as_view(), name='ad-delete'),
     path('ad/new',
-         AdvertisementCreateView.as_view(), name='ad-create')
+         AdvertisementCreateView.as_view(), name='ad-create'),
+    path('savead/<int:id>', save_or_delete_ad, name='save-or-delete-ad'),
+
 ]

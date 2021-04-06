@@ -1,8 +1,6 @@
 from django.db.models import Q
-import django_filters as df
 from django.forms import TextInput, Select
-from django_filters import DateRangeFilter, CharFilter
-from django_filters import ModelChoiceFilter, RangeFilter, ChoiceFilter
+from django_filters import DateRangeFilter, CharFilter, ModelChoiceFilter, RangeFilter, ChoiceFilter, FilterSet
 
 from .models import Advertisement
 from .models import Category
@@ -11,15 +9,20 @@ from .widgets import CustomRangeWidget
 from .functions import get_distance_from_lat_lon_in_km
 
 
-class AdvertisementFilter(df.FilterSet):
+class AdvertisementFilter(FilterSet):
 
     def __init__(self, request, queryset, user):
         super(AdvertisementFilter, self).__init__(request, queryset)
         self.user = user
 
+    q = CharFilter(
+        label="Søk",
+        field_name="search",
+        method='search_by_string',
+        widget=TextInput(
+                attrs={'class': 'form-control', 'placeholder': 'Søk'})
+            )
 
-    q = CharFilter(label="Søk",field_name="search", method='my_custom_filter', widget=TextInput(
-                            attrs={'class' :'form-control', 'placeholder':'Søk'}))
     category = ModelChoiceFilter(label="Kategori",
                                  field_name="category", queryset=Category.objects.all(),
                                  empty_label='Velg kategori',
@@ -68,7 +71,7 @@ class AdvertisementFilter(df.FilterSet):
         model = Advertisement
         fields = ['q']
 
-    def my_custom_filter(self, queryset, name, value):
+    def search_by_string(self, queryset, name, value):
         return Advertisement.objects.filter(
             Q(title__icontains=value) | Q(description__icontains=value)
         )
@@ -88,7 +91,7 @@ class AdvertisementFilter(df.FilterSet):
         longitude = self.user.profile.longitude
         ads_ids = []
         for ad in queryset.all():
-            if get_distance_from_lat_lon_in_km(ad.latitude, ad.longitude, latitude, longitude) < float(value):
+            if get_distance_from_lat_lon_in_km(
+                    ad.latitude, ad.longitude, latitude, longitude) < float(value):
                 ads_ids.append(ad.id)
-        return Advertisement.objects.filter(id__in=ads_ids)
-
+        return queryset.filter(id__in=ads_ids)

@@ -1,0 +1,16 @@
+{% extends "pages/base.html" %}
+{% block content %}
+
+<div class="ads-div">
+    <h1 class="mb-3 ads-h1">Mine reklameannonser</h1>
+</div>
+<div class="d-flex flex-wrap align-content-stretch reklame-container">
+    {% for advertisement in advertisements %}
+        <div class = "ads-container-2">
+            <img src="../../../media/{{advertisement.banner}}"
+                         style="max-height: 200px;">
+            <p style="color: #666; margin-top: 10px;">Expired {{advertisement.expired}}</p>
+        </div>
+    {% endfor %}
+</div>
+{% endblock content %}

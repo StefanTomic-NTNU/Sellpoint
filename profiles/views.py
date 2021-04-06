@@ -1,3 +1,5 @@
+import random
+
 from django.contrib.auth import logout
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
@@ -10,6 +12,8 @@ from django.urls import reverse_lazy, reverse
 from .models import Feedback, Profile
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView
 
+from contacts.models import Contact
+from reklame.models import Reklame
 from sellpoint import settings
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, FeedbackForm, FeedbackUpdateForm
 
@@ -30,7 +34,12 @@ def register(request):
 def profile(request, pk):
     own_user = request.user
     other_user = User.objects.get(pk=pk)
-    return render(request, 'profiles/profile_detail.html', {'own_user': own_user, 'other_user': other_user})
+    items = list(Reklame.objects.all())
+    random_item = random.choice(items) if items else None
+    return render(request, 'profiles/profile_detail.html',
+                  {'own_user': own_user,
+                   'other_user':other_user,
+                   'reklame': random_item})
 
 
 @login_required
@@ -182,3 +191,18 @@ class UpdateFeedbackView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
                 obj.save()
         return HttpResponseRedirect('/profile/' + str(recipient.id) + '/feedback/')
 
+
+
+@login_required
+def inbox(request):
+    received_contacts = Contact.objects.order_by('-contact_date').filter(recipient=request.user)
+    sent_contacts = Contact.objects.order_by('-contact_date').filter(sender=request.user)
+    for received_contact in received_contacts:
+        received_contact.message_read = True
+        received_contact.save()
+    context = {
+        'received_contacts':received_contacts,
+        'sent_contacts': sent_contacts,
+        'title':'inbox'
+        }
+    return render(request, 'profiles/inbox.html', context)

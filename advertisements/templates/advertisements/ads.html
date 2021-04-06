@@ -1,17 +1,22 @@
 {% extends "pages/base.html" %}
+
 {% block content %}
 
-<div style="margin-left: 15%; margin-right: 15%">
-    <h1 class="mb-3 ads-h1" style="padding-bottom: 30px; font-size: 40; text-align:center; color: #003366;">
-        {% if username %}
-        Annonsene til {{ username }}
-        {% elif chocen_category_name %}
-        {{ chocen_category_name }}
-        {% else %}Søk i annonser
+<div class="ads-div">
+    <h1 class="mb-3 ads-h1">
+        {% if saved_ads %}
+            Mine lagrede annonser
+        {% else %}
+            {% if username %}
+            Annonsene til {{ username }}
+            {% elif chocen_category_name %}
+            {{ chocen_category_name }}
+            {% else %}Søk i annonser
+            {% endif %}
         {% endif %}
     </h1>
 
-    {% if username %}
+    {% if username or saved_ads %}
     {% else %}
     <div class="form-div row">
     <div class="row">
@@ -43,14 +48,10 @@
     {% endif %}
 </div>
 </div>
-<div class="d-flex flex-wrap align-content-stretch" style="padding-top: 5%; margin: auto; width: 100%; justify-content: space-around;">
+<div class="d-flex flex-wrap align-content-stretch ads-container">
     {% for advertisement in advertisements %}
-    <div style="margin:50px">
-        <div class="ad-polaroid rounded" style="
-              width: 256px;
-              height: 256px;
-              background-color: white;
-              box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+    <div class = "ads-container-2">
+        <div class="ad-polaroid rounded ad-container">
             {% if username %}
             <a class="nounderline" href="{% url 'user-ad-detail' username advertisement.id %}"/>
             {% elif category_name %}
@@ -59,25 +60,18 @@
                     <a class="nounderline" href="{% url 'ad-detail' advertisement.id %}">
             {% endif %}
 
-                <img class="img-fluid" src="{{ advertisement.image_main.url }}" style="width:100%; height:210px">
+                <img class="img-fluid ad-image" src="{{ advertisement.image_main.url }}">
 
-                <div class="d-flex text-decoration-none" style="padding: 10px 15px">
-                    <h5 class="text-muted text-left text-decoration-none" style="
-                        font-weight: normal;
-                        display: block;
-                        width: 100px;
-                        overflow: hidden;
-                        white-space: nowrap;
-                        text-overflow: ellipsis;"> {{ advertisement.title }}</h5>
-
-                          <h2 class="figure-caption ml-auto text-decoration-none " style="
-                          font-size:20px;
-                          font-weight: bold;
-                        display: block;
-
-                        overflow: hidden;
-                        white-space: nowrap;
-                        text-overflow: ellipsis;">{{ advertisement.price }}</h2>
+                <div class="d-flex text-decoration-none ad-container-down">
+                    <h5 class="text-muted text-left text-decoration-none h5-ad"> {{ advertisement.title }}</h5>
+                    {% if advertisement in user_saved_ads %}
+                    <div class = "svg-div">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark-heart-fill" viewBox="0 0 16 16">
+                            <path d="M2 15.5a.5.5 0 0 0 .74.439L8 13.069l5.26 2.87A.5.5 0 0 0 14 15.5V2a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v13.5zM8 4.41c1.387-1.425 4.854 1.07 0 4.277C3.146 5.48 6.613 2.986 8 4.412z"/>
+                        </svg>
+                    </div>
+                    {% endif %}
+                    <h2 class="figure-caption ml-auto text-decoration-none h2-ad-price">{{ advertisement.price }}</h2>
                 </div>
             </a>
         </div>

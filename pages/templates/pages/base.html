@@ -8,17 +8,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
+
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
     <link rel="stylesheet" type="text/css" href="{% static 'pages/main.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-
-    {% if title %}
-        <title>Sellpoint - {{ title }}</title>
-    {% else %}
-        <title>Sellpoint</title>
-    {% endif %}
+    <title>
+        Sellpoint
+        {% if title %}
+            - {{ title }}
+        {% endif %}
+        {% if unread_messages and unread_messages > 0 %}
+             ({{ unread_messages }})
+        {% endif %}
+    </title>
 
 </head>
 <body>
@@ -50,16 +55,45 @@
                                 </a>
                             </button>
                         </li>
-                        <!--<li class="nav-item">
-                            <button class="bg-light nav-button" style="border: none;">
-                                <a class="nav-link" href="#" style="color: black;"
-                                >Om oss</a>
-                            </button>
-                        </li>-->
                     </ul>
                 </div>
                 {% if user.is_authenticated %}
                 <ul class="navbar-nav">
+                     {% if user.profile.is_advertiser %}
+                    <li class="nav-item">
+                        <button class="bg-light nav-button" style="border: none;">
+                            <a class="nav-link" href="{% url 'check-if-user-should-renew-subscription' %}"
+                               style="color: black;"
+                            >Publiser reklame</a>
+                        </button>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <button class="bg-light nav-button" style="border: none;">
+                            <a class="nav-link" href="{% url 'become-advertiser' %}" style="color: #F97934 ;"
+                            >Bli annonsør</a>
+                        </button>
+                    </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <button class="bg-light nav-button" style="border: none;">
+                            <a class="notif nav-link" href="{% url 'inbox' %}" style="color: black;
+                            position: relative;
+                                left: -20px;
+                              display: block;">
+
+                                Meldinger
+                                <span class="num" style="position: absolute;
+                                                          right: -1px;
+                                                          top: 4px;
+                                                          color: #e50000;">
+                                    {% if unread_messages %}
+                                        {{ unread_messages }}
+                                    {% endif %}
+                                </span>
+                            </a>
+                        </button>
+                    </li>
                     <li class="nav-item">
                         <button class="bg-light nav-button" style="border: none;">
                             <a class="nav-link" href="{% url 'ad-create' %}" style="color: black;"
@@ -72,6 +106,15 @@
                             >Profil</a>
                         </button>
                     </li>
+                    {% if user.profile.is_advertiser %}
+                    <li class="nav-item">
+                        <button class="bg-light nav-button" style="border: none;">
+                            <a class="nav-link" href="{% url 'advertiser-ads' user %}" style="color: black;"
+                            >Mine reklameannonser</a>
+                        </button>
+                    </li>
+                    {% endif %}
+                    <li class="nav-item">
                     <li class="nav-item">
                         <button class="bg-light nav-button" style="font-weight: bold;
                                     border: solid black 2px;
@@ -113,7 +156,16 @@
                     </div>
                 {% endfor %}
             {% endif %}
+
             {% block content %}{% endblock content %}
+             {% if reklame %}
+                <div class="reklame-div" style=" display: block;
+                          margin-left: auto;
+                          margin-right: auto;">
+                     <img src="../../../media/{{reklame.banner}}"
+                          style="max-height: 200px;">
+                </div>
+            {% endif %}
       </div>
     </main>
 

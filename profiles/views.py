@@ -8,6 +8,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy, reverse
+from datetime import date
 
 from .models import Feedback, Profile
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView
@@ -131,6 +132,7 @@ class FeedbackCreateView(LoginRequiredMixin, CreateView):
             form = form_temp.save(commit=False)
             form.author = author
             form.recipient = recipient_profile
+            form.published = date.today()
             form.save()
             return HttpResponseRedirect('/profile/' + str(recipient.id) + '/feedback/')
         else:

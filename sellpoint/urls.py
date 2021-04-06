@@ -11,6 +11,7 @@ urlpatterns = [
     path('', include('pages.urls')),
     path('ads/', include('advertisements.urls')),
     path('advertisements/', include('advertisements.urls')),
+    path('reklame/', include('reklame.urls')),
     path('admin/', admin.site.urls),
     path('profile/', include('profiles.urls')),
     path('register/', profile_views.register, name='register'),

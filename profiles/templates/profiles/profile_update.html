@@ -1,0 +1,32 @@
+{% extends "pages/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="content-section">
+      <div class="media" >
+        <img class="rounded-circle account-img" src={{user.profile.image.url}} width="200" height="200">
+        <div class="media-body profile-div">
+            <h2 class="account-heading">{{other_user.username}}</h2>
+            <p class="text-secondary">{{other_user.birth_date}}</p>
+            <p class="text-secondary">{{other_user.email}}</p>
+        </div>
+      </div>
+    
+</div>
+
+      <form method="POST" enctype="multipart/form-data"> <!-- enctype sørger for at bildet blir lagret -->
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">
+                    Din profil
+                </legend>
+                {{ u_form|crispy }}
+                {{ p_form|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info">
+                    Oppdater profil
+                </button>
+            </div>
+        </form>
+    </div>
+{% endblock content %}

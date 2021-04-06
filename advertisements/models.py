@@ -27,4 +27,16 @@ class Advertisement(models.Model):
         return reverse('ad-detail', kwargs={'pk': self.pk})
 
     def __str__(self):
-        return self.title +  ": NOK" + str(self.price)
+        return self.title + ": NOK" + str(self.price)
+
+
+class UserSavedAd(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    ad = models.ForeignKey(Advertisement, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)  # When was this relationship established
+
+    class Meta:
+        unique_together = (('user', 'ad'))
+
+    def __str__(self):
+        return str(self.user) + "--" + str(self.ad)

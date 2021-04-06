@@ -85,7 +85,18 @@ class FeedbackForm(forms.ModelForm):
             'comment': forms.Textarea(attrs={'class': 'form-control'}),
             'rating': forms.TextInput(attrs={'class': 'form-control'}),
             'published': forms.DateInput(attrs={'class': 'form-control'})
-           # 'author': forms.Select(attrs={'class': 'form-control'}),
-           #  'recipient': forms.Select(attrs={'class': 'form-control'})
+            # 'author': forms.Select(attrs={'class': 'form-control'}),
+            #  'recipient': forms.Select(attrs={'class': 'form-control'})
         }
         fields = ['comment', 'rating', 'published']
+
+
+class FeedbackUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Feedback
+        widgets = {
+            'comment': forms.Textarea(attrs={'class': 'form-control'}),
+            'rating': forms.TextInput(attrs={'class': 'form-control'}),
+        }
+        fields = ['comment', 'rating', 'published']
+        fields = ['comment', 'rating']

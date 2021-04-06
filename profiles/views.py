@@ -1,15 +1,17 @@
 from django.contrib.auth import logout
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse_lazy, reverse
 
 from .models import Feedback, Profile
-from django.views.generic import ListView, CreateView
+from django.views.generic import ListView, CreateView, DeleteView, UpdateView
 
 from sellpoint import settings
-from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, FeedbackForm
+from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, FeedbackForm, FeedbackUpdateForm
 
 
 def register(request):
@@ -102,11 +104,11 @@ class FeedbackListView(ListView):
         return render(request, 'profiles/feedback_list.html', {
             'own_user': own_user,
             'other_user': other_user,
-            'object_list': object_list
+            'object_list': object_list,
         })
 
 
-class FeedbackCreateView(CreateView):
+class FeedbackCreateView(LoginRequiredMixin, CreateView):
     model = Feedback
     form_class = FeedbackForm
     template_name = 'profiles/feedback_create.html'
@@ -122,5 +124,54 @@ class FeedbackCreateView(CreateView):
         form.save()
         return HttpResponseRedirect('/profile/' + str(recipient.id) + '/feedback/')
 
+    def form_valid(self, form):
+        form.instance.feedback_id = self.kwargs['pk']
+        return super().form_valid(form)
 
+
+class DeleteFeedbackView(LoginRequiredMixin, DeleteView):
+    model = Feedback
+    template_name = 'profiles/feedback_delete.html'
+
+    def get(self, request, pk):
+        recipient_feedback = Feedback.objects.get(pk=pk)
+        recipient = recipient_feedback.recipient
+        return render(request, 'profiles/feedback_delete.html', {
+            'recipient': recipient,
+        })
+
+    def delete(self, request, pk):
+        recipient_feedback = Feedback.objects.get(pk=pk)
+        recipient = recipient_feedback.recipient
+        recipient_feedback.delete()
+        return HttpResponseRedirect('/profile/' + str(recipient.id) + '/feedback/')
+
+
+class UpdateFeedbackView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Feedback
+    template_name = 'profiles/feedback_update.html'
+    form_class = FeedbackUpdateForm
+
+    def form_valid(self, form):
+        form.instance.feedback_id = self.kwargs['pk']
+        form.save()
+        return super().form_valid(form)
+
+    def test_func(self):
+        feedback = self.get_object()
+        if self.request.user == feedback.author:
+            return True
+        return False
+
+    def post(self, request, pk):
+        if request.method == 'POST':
+            form = FeedbackForm(request.POST)
+            recipient_feedback = Feedback.objects.get(pk=pk)
+            recipient = recipient_feedback.recipient
+            if form.is_valid():
+                obj = Feedback()
+                obj.comment = form.cleaned_data['comment']
+                obj.rating = form.cleaned_data['rating']
+                obj.save()
+        return HttpResponseRedirect('/profile/' + str(recipient.id) + '/feedback/')
 

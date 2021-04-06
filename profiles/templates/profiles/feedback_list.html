@@ -21,15 +21,18 @@
 
     <!-- TODO legge til link slik at brukeren blir redirected til profilen -->
 
-    <small>Skrevet av <a href="#">{{ feedback.author }} </a> | {{ feedback.published }} </small> <br/> <hr>
+    <small>Skrevet av <a href="#">{{ feedback.author }} </a> | {{ feedback.published }}
+    {% if own_user.id == feedback.author.id %}
+    <a href="{% url 'update-feedback' feedback.pk %}">Rediger</a>
+    <a href="{% url 'delete-feedback' feedback.pk %}">Slett</a>
+    {% endif %}
+    </small> <hr>
 
 {% endfor %}
-
     {% if not own_user.id == other_user.id %}
-        <a class="btn btn-outline-info nounderline" href="create_feedback/">Legg til</a>
+        <a class="btn btn-outline-info nounderline" href="create_feedback/">Legg til</a> <br/> <br/>
     {% endif %}
 
 </div>
-
 {% endblock content %}
 

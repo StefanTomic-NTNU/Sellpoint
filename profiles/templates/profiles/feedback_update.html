@@ -1,0 +1,17 @@
+{% extends "pages/base.html" %}
+{% block content %}
+<div>
+<h1>Redigere feedback</h1>
+<br/>
+
+<form method="POST" class="form-group">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+<Button class ="btn btn-outline-info nounderline" type="submit" value="Submit">Lagre</Button>
+
+</form>
+    <br/>
+</div>
+
+{% endblock %}

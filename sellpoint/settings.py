@@ -34,6 +34,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'reklame.apps.ReklameConfig',
     'advertisements.apps.AdvertisementsConfig',
     'contacts.apps.ContactsConfig',
     'pages.apps.PagesConfig',
@@ -72,7 +73,6 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'contacts.context_processors.notifications'
             ],
         },
     },
@@ -144,3 +144,6 @@ LOGIN_URL = 'login'
 
 STATIC_URL = 'pages/static/'
 
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

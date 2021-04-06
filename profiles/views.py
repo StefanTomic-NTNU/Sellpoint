@@ -1,3 +1,5 @@
+import random
+
 from django.contrib.auth import logout
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
@@ -5,6 +7,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
 from contacts.models import Contact
+from reklame.models import Reklame
 from sellpoint import settings
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 
@@ -25,7 +28,12 @@ def register(request):
 def profile(request, pk):
     own_user = request.user
     other_user = User.objects.get(pk=pk)
-    return render(request, 'profiles/profile_detail.html', {'own_user':own_user, 'other_user':other_user})
+    items = list(Reklame.objects.all())
+    random_item = random.choice(items) if items else None
+    return render(request, 'profiles/profile_detail.html',
+                  {'own_user':own_user,
+                   'other_user':other_user,
+                   'reklame': random_item})
 
 
 @login_required

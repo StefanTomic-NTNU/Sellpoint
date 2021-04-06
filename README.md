@@ -22,4 +22,6 @@ Reports blir genrert i htmlcov-mappe
 name: admin
 password: aR5!?kuRTui
 
+### Delete expired reklame
+`python manage.py delete_expired`
 

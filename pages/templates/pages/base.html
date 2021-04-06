@@ -77,10 +77,19 @@
                     {% endif %}
                     <li class="nav-item">
                         <button class="bg-light nav-button" style="border: none;">
-                            <a class="notif nav-link" href="{% url 'inbox' %}" style="color: black;
-                            position: relative;
-                                left: -20px;
-                              display: block;">
+                            <a class="nav-link" href="{% url 'ad-create' %}" style="color: black;"
+                            >Opprett annonse</a>
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="bg-light nav-button" style="border: none;">
+                            <a class="nav-link" href="{% url 'profile' %}" style="color: black;"
+                            >Profil</a>
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="bg-light nav-button" style="border: none;">
+                            <a class="notif nav-link" href="{% url 'inbox' %}" style="color: black;">
 
                                 Meldinger
                                 <span class="num" style="position: absolute;
@@ -92,18 +101,6 @@
                                     {% endif %}
                                 </span>
                             </a>
-                        </button>
-                    </li>
-                    <li class="nav-item">
-                        <button class="bg-light nav-button" style="border: none;">
-                            <a class="nav-link" href="{% url 'ad-create' %}" style="color: black;"
-                            >Opprett annonse</a>
-                        </button>
-                    </li>
-                    <li class="nav-item">
-                        <button class="bg-light nav-button" style="border: none;">
-                            <a class="nav-link" href="{% url 'profile' %}" style="color: black;"
-                            >Profil</a>
                         </button>
                     </li>
                     {% if user.profile.is_advertiser %}

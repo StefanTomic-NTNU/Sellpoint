@@ -63,8 +63,14 @@
                     <li class="nav-item">
                         <button class="bg-light nav-button" style="border: none;">
                             <a class="nav-link" href="{% url 'check-if-user-should-renew-subscription' %}"
-                               style="color: black;"
+                               style="color: #F97934;"
                             >Publiser reklame</a>
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="bg-light nav-button" style="border: none;">
+                            <a class="nav-link" href="{% url 'advertiser-ads' user %}" style="color: black;"
+                            >Mine reklameannonser</a>
                         </button>
                     </li>
                     {% else %}
@@ -77,10 +83,19 @@
                     {% endif %}
                     <li class="nav-item">
                         <button class="bg-light nav-button" style="border: none;">
-                            <a class="notif nav-link" href="{% url 'inbox' %}" style="color: black;
-                            position: relative;
-                                left: -20px;
-                              display: block;">
+                            <a class="nav-link" href="{% url 'ad-create' %}" style="color: black;"
+                            >Opprett annonse</a>
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="bg-light nav-button" style="border: none;">
+                            <a class="nav-link" href="{% url 'profile' %}" style="color: black;"
+                            >Profil</a>
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="bg-light nav-button" style="border: none;">
+                            <a class="notif nav-link" href="{% url 'inbox' %}" style="color: black;">
 
                                 Meldinger
                                 <span class="num" style="position: absolute;
@@ -94,26 +109,7 @@
                             </a>
                         </button>
                     </li>
-                    <li class="nav-item">
-                        <button class="bg-light nav-button" style="border: none;">
-                            <a class="nav-link" href="{% url 'ad-create' %}" style="color: black;"
-                            >Opprett annonse</a>
-                        </button>
-                    </li>
-                    <li class="nav-item">
-                        <button class="bg-light nav-button" style="border: none;">
-                            <a class="nav-link" href="{% url 'profile' %}" style="color: black;"
-                            >Profil</a>
-                        </button>
-                    </li>
-                    {% if user.profile.is_advertiser %}
-                    <li class="nav-item">
-                        <button class="bg-light nav-button" style="border: none;">
-                            <a class="nav-link" href="{% url 'advertiser-ads' user %}" style="color: black;"
-                            >Mine reklameannonser</a>
-                        </button>
-                    </li>
-                    {% endif %}
+
                     <li class="nav-item">
                     <li class="nav-item">
                         <button class="bg-light nav-button" style="font-weight: bold;

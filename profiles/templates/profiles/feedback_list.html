@@ -1,0 +1,38 @@
+{% extends "pages/base.html" %}
+{% block content %}
+
+<div>
+    {% if own_user.id == other_user.id %}
+<h1>
+    Her er alle kommentarene dine!
+</h1>
+
+    {% else %}
+    <h1>
+    Her er alle kommentarene til {{other_user.username}}!
+        </h1>
+
+    {% endif %}
+
+<br/>
+{% for feedback in object_list %}
+    <strong>Rating: {{ feedback.rating }}/5 </strong> <br/> {{ feedback.comment }}
+     <br/>
+
+    <!-- TODO legge til link slik at brukeren blir redirected til profilen -->
+
+    <small>Skrevet av <a href="{% url 'profile-detail' feedback.author.id %}">{{ feedback.author }} </a> | {{ feedback.published }}
+    {% if own_user.id == feedback.author.id %}
+    <!-- <a href="{% url 'update-feedback' feedback.pk %}">Rediger</a> -->
+    <a href="{% url 'delete-feedback' feedback.pk %}">Slett</a>
+    {% endif %}
+    </small> <hr>
+
+{% endfor %}
+    {% if not own_user.id == other_user.id %}
+        <a class="btn btn-outline-info nounderline" href="create_feedback/">Legg til</a> <br/> <br/>
+    {% endif %}
+
+</div>
+{% endblock content %}
+

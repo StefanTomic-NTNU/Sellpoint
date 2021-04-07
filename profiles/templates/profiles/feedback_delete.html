@@ -1,0 +1,18 @@
+{% extends "pages/base.html" %}
+{% block content %}
+<div>
+<h1>Slette feedback</h1>
+
+<br/>
+<div class="form-group">
+<form method="POST">
+{% csrf_token %}
+    <br/>
+    <strong>Er du sikker på at du vil slette?</strong> <br/><br/>
+    <button class="btn btn-danger" type="submit" value="Submit">Slett feedback!</button>
+    <a class="btn btn-outline-secondary" href="/profile/{{recipient.id}}/feedback">Avbryt</a>
+</form> </div> </div>
+
+
+
+{% endblock content %}

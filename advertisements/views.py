@@ -11,7 +11,6 @@ from .filters import AdvertisementFilter
 
 
 def advertisement_list(request):
-
     advertisements = Advertisement.objects.all()
 
     ad_filter = AdvertisementFilter(request.GET, queryset=advertisements, user=request.user)
@@ -55,7 +54,7 @@ class AdvertisementListView(ListView):
     template_name = 'advertisements/ads.html'
     context_object_name = 'advertisements'
     ordering = ['-published']
-    paginate_by = 8     # Nyttig for når vi skal implementere pagination (flere sider med ads)'
+    paginate_by = 8  # Nyttig for når vi skal implementere pagination (flere sider med ads)'
 
 
 class UserAdvertisementListView(ListView):
@@ -163,6 +162,7 @@ class CategoryAdvertisementDetailView(DetailView):
 class AdvertisementCreateView(LoginRequiredMixin, CreateView):
     model = Advertisement
     fields = ['title', 'description', 'price', 'category', 'latitude', 'longitude', 'image_main']
+
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
@@ -172,7 +172,6 @@ class AdvertisementUpdateView(
     LoginRequiredMixin,
     UserPassesTestMixin,
     UpdateView):
-
     model = Advertisement
     fields = ['title', 'description', 'price', 'category', 'image_main', 'latitude', 'longitude']
 
@@ -200,7 +199,6 @@ class AdvertisementDeleteView(
     LoginRequiredMixin,
     UserPassesTestMixin,
     DeleteView):
-
     model = Advertisement
     success_url = '/ads'
 

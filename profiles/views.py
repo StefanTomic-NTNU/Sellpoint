@@ -125,22 +125,21 @@ class FeedbackCreateView(LoginRequiredMixin, CreateView):
 
     def post(self, request, pk):
         author = request.user
-        recipient = User.objects.get(pk=pk)
-        recipient_profile = Profile.objects.get(user=recipient)
+        recipient = Profile.objects.get(pk=pk)
         form_temp = FeedbackForm(request.POST)
         if form_temp.is_valid():
             form = form_temp.save(commit=False)
             form.author = author
-            form.recipient = recipient_profile
+            form.recipient = recipient
             form.published = date.today()
             form.save()
-            return HttpResponseRedirect('/profile/' + str(recipient.id) + '/feedback/')
+            return HttpResponseRedirect('/profile/' + str(recipient.user.id) + '/feedback/')
         else:
             context = {
                 'form': form_temp
             }
             messages.error(request, "Rating må være mellom 0 og 5")
-            return HttpResponseRedirect('/profile/' + str(recipient.id) + '/feedback/create_feedback/', context)
+            return HttpResponseRedirect('/profile/' + str(recipient.user.id) + '/feedback/create_feedback/', context)
 
     def form_valid(self, form):
         form.instance.feedback_id = self.kwargs['pk']

@@ -79,7 +79,11 @@ class TestViews(BaseTest):
         self.assertEqual(response.status_code, HTTPStatus.OK)
         response = self.client.post(self.contact_user2_ad_url, message, format='text/html')
         self.assertEqual(response.status_code, HTTPStatus.FOUND)
-        # self.assertEqual(response.url, reverse('advertisements'))
+        self.assertTrue(Contact.objects.get(
+            message='Hei, dette er en test',
+            phone='12312312',
+            email='contact1@test.com'
+        ))
 
     def test_user_can_view_received_messages(self):
         message = 'tullemelding'

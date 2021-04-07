@@ -21,7 +21,7 @@
 
     <!-- TODO legge til link slik at brukeren blir redirected til profilen -->
 
-    <small>Skrevet av <a href="">{{ feedback.author }} </a> | {{ feedback.published }}
+    <small>Skrevet av <a href="{% url 'profile-detail' feedback.author.id %}">{{ feedback.author }} </a> | {{ feedback.published }}
     {% if own_user.id == feedback.author.id %}
     <!-- <a href="{% url 'update-feedback' feedback.pk %}">Rediger</a> -->
     <a href="{% url 'delete-feedback' feedback.pk %}">Slett</a>
